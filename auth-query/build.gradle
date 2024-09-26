@@ -10,8 +10,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project(path: ':workspace:auth-service:auth-shared', configuration: 'default')
+    implementation project(path: ':workspace:shared:shared-elasticsearch', configuration: 'default')
+
 }
 
 test {
