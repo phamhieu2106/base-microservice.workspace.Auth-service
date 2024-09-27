@@ -1,0 +1,22 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: auth-command
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        default_schema: auth_event
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DOCKER_POSTGRES_URL}/henry-event?currentSchema=auth_event
+    username: ${DOCKER_POSTGRES_USERNAME}
+    password: ${DOCKER_POSTGRES_PASSWORD}
+server:
+  port: 8001
+
+prefix:
+  api: ${PREFIX_URL}

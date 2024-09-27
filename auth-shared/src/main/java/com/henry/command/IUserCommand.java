@@ -1,4 +1,4 @@
-package com.henry.i_command;
+package com.henry.command;
 
 import com.henry.Command;
 

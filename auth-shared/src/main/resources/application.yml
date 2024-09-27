@@ -1,0 +1,2 @@
+system:
+  name: ${SYSTEM_NAME}

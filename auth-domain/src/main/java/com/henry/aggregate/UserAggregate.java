@@ -2,7 +2,7 @@ package com.henry.aggregate;
 
 import com.henry.Event;
 import com.henry.base.DomainAggregate;
-import com.henry.i_command.IUserCommand;
+import com.henry.command.IUserCommand;
 import com.henry.repository.UserRepository;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
