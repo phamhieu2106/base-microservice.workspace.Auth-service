@@ -6,7 +6,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
       hibernate:
         default_schema: auth_event
@@ -17,6 +16,8 @@ spring:
     password: ${DOCKER_POSTGRES_PASSWORD}
 server:
   port: 8001
-
 prefix:
   api: ${PREFIX_URL}
+
+environment:
+  debug: true
