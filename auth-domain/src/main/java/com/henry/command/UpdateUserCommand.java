@@ -1,13 +1,18 @@
 package com.henry.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Date;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
 public class UpdateUserCommand implements IUserCommand {
+    private String phoneNumber;
+    private String email;
+    private String fullName;
+    private Date dateOfBirth;
+    private String actionUser;
 }

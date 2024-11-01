@@ -1,6 +1,6 @@
-package com.henry.event;
+package com.henry.request;
 
-import com.henry.event.base.BaseUserEvent;
+import com.henry.request.base.BaseUserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,14 +8,13 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class UpdateUserEvent extends BaseUserEvent {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateUserRequest extends BaseUserRequest {
     private String phoneNumber;
     private String email;
     private String fullName;
     private Date dateOfBirth;
-    private String actionUser;
 }

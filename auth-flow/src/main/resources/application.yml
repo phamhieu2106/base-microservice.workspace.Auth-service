@@ -2,7 +2,7 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: auth-command
+    name: auth-flow
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -15,9 +15,8 @@ spring:
     username: ${DOCKER_POSTGRES_USERNAME}
     password: ${DOCKER_POSTGRES_PASSWORD}
 server:
-  port: 8001
-prefix:
-  api: ${PREFIX_URL}
+  port: 8002
+
 
 environment:
   debug: true
