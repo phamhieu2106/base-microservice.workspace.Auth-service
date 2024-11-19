@@ -1,0 +1,22 @@
+package com.henry.request.user;
+
+import com.henry.base.domain.request.BasePageSortRequest;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class QueryUserRequest extends BasePageSortRequest {
+    private String keyword;
+
+    private String phoneNumber;
+    private String email;
+    private String username;
+    private List<String> status;
+}

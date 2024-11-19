@@ -1,14 +1,17 @@
 package com.henry.controller;
 
 import com.henry.base.controller.BaseController;
-import com.henry.base.service.response.WrapResponse;
-import com.henry.func.CreateUserFunc;
-import com.henry.func.UpdateUserFunc;
-import com.henry.request.CreateUserRequest;
-import com.henry.request.UpdateUserRequest;
+import com.henry.base.domain.response.WrapResponse;
+import com.henry.func.test_func.CreateUsersFunc;
+import com.henry.func.user.ConfirmActiveUserFunc;
+import com.henry.func.user.CreateUserFunc;
+import com.henry.func.user.UpdateUserFunc;
+import com.henry.request.user.CreateUserRequest;
+import com.henry.request.user.UpdateUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
@@ -21,19 +24,27 @@ public class UserController extends BaseController {
                 -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request)), executorService);
     }
 
+    @PostMapping("/create-users")
+    public CompletableFuture<WrapResponse<String>> createUsers(@Valid @RequestBody List<CreateUserRequest> request) {
+        return CompletableFuture.supplyAsync(()
+                -> WrapResponse.ok(applicationContext.getBean(CreateUsersFunc.class).exec(request)), executorService);
+    }
+
     @PostMapping("/update/{id}")
     public CompletableFuture<WrapResponse<String>> update(@PathVariable String id, @Valid @RequestBody UpdateUserRequest request) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(UpdateUserFunc.class).exec(id, request)), executorService);
     }
 
-    @PostMapping("/confirm/{id}")
+    @PostMapping("/confirm-active/{id}")
     public CompletableFuture<WrapResponse<String>> confirm(@PathVariable String id) {
-        return CompletableFuture.supplyAsync(() -> WrapResponse.ok("OK"));
+        return CompletableFuture.supplyAsync(()
+                -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(id)), executorService);
     }
 
     @PostMapping("/disable/{id}")
     public CompletableFuture<WrapResponse<String>> disable(@PathVariable String id) {
         return CompletableFuture.supplyAsync(() -> WrapResponse.ok("OK"));
     }
+
 }

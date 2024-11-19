@@ -1,15 +1,15 @@
-package com.henry.func;
+package com.henry.func.user;
 
 import com.henry.aggregate.UserAggregate;
 import com.henry.base.aggregate.BaseAggregate;
 import com.henry.base.exception.ServiceException;
-import com.henry.base.service.func.BaseFunc;
+import com.henry.base.func.BaseFunc;
 import com.henry.command.CreateUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
 import com.henry.constant.UserStatus;
 import com.henry.repository.UserRepository;
-import com.henry.request.CreateUserRequest;
+import com.henry.request.user.CreateUserRequest;
 import com.henry.util.MappingUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,8 @@ public class CreateUserFunc extends BaseFunc {
         validateRequest(request);
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
-        command.setStatus(UserStatus.ACTIVE);
+        command.setStatus(UserStatus.INACTIVE);
+
         return userAggregateRepository.save(command).getId();
     }
 

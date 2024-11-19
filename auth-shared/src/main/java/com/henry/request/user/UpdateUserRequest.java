@@ -1,8 +1,5 @@
-package com.henry.request;
+package com.henry.request.user;
 
-import com.henry.constant.AuthErrorCode;
-import com.henry.request.base.BaseUserRequest;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest extends BaseUserRequest {
-    @NotBlank(message = AuthErrorCode.USER_USERNAME_EMPTY)
-    private String username;
+public class UpdateUserRequest {
     private String phoneNumber;
     private String email;
     private String fullName;

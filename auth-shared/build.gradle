@@ -2,6 +2,10 @@ plugins {
     id 'java'
 }
 
+ext {
+    springCloudVersion = "2023.0.3"
+}
+
 group = 'com.henry'
 version = '0.0.1-SNAPSHOT'
 
@@ -16,6 +20,8 @@ dependencies {
     implementation project(path: ':workspace:shared:shared-database', configuration: 'default')
     implementation project(path: ':workspace:shared:shared-rabbitmq', configuration: 'default')
     implementation project(path: ':workspace:shared:shared-elasticsearch', configuration: 'default')
+    implementation project(path: ':workspace:shared:shared-redis', configuration: 'default')
+    implementation project(path: ':workspace:shared:shared-mvc', configuration: 'default')
 }
 
 test {

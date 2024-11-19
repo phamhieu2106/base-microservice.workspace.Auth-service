@@ -1,14 +1,14 @@
-package com.henry.func;
+package com.henry.func.user;
 
 import com.henry.aggregate.UserAggregate;
 import com.henry.base.aggregate.BaseAggregate;
 import com.henry.base.exception.ServiceException;
-import com.henry.base.service.func.BaseFunc;
+import com.henry.base.func.BaseFunc;
 import com.henry.command.IUserCommand;
 import com.henry.command.UpdateUserCommand;
 import com.henry.constant.AuthErrorCode;
 import com.henry.repository.UserRepository;
-import com.henry.request.UpdateUserRequest;
+import com.henry.request.user.UpdateUserRequest;
 import com.henry.util.MappingUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
