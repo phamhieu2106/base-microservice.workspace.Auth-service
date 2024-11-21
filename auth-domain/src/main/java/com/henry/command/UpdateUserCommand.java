@@ -1,8 +1,10 @@
 package com.henry.command;
 
+import com.henry.constant.UserRole;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,5 +16,6 @@ public class UpdateUserCommand implements IUserCommand {
     private String email;
     private String fullName;
     private Date dateOfBirth;
+    private List<UserRole> authorities;
     private String actionUser;
 }

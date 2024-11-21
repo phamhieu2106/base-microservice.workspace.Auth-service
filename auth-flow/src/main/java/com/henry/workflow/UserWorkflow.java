@@ -41,6 +41,6 @@ public class UserWorkflow extends BaseWorkFlow {
             return;
         }
 
-        logger.error(">>>>>>>>>>> No handler found for event type: {}", eventEntity.getEventType());
+        logger.info(">>>>>>>>>>> No handler found for event type: {}", eventEntity.getEventType());
     }
 }

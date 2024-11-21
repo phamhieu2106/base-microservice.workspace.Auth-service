@@ -7,6 +7,7 @@ import com.henry.base.func.BaseFunc;
 import com.henry.command.CreateUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
 import com.henry.repository.UserRepository;
 import com.henry.request.user.CreateUserRequest;
@@ -14,6 +15,8 @@ import com.henry.util.MappingUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -28,7 +31,7 @@ public class CreateUserFunc extends BaseFunc {
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
         command.setStatus(UserStatus.INACTIVE);
-
+        command.setAuthorities(List.of(UserRole.USER));
         return userAggregateRepository.save(command).getId();
     }
 

@@ -5,20 +5,21 @@ import com.henry.command.CreateUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.command.UpdateUserCommand;
 import com.henry.command.UpdateUserPasswordCommand;
+import com.henry.constant.CustomJDBCType;
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
+import com.henry.converter.JDBCConverterToJson;
 import com.henry.event.CreateUserEvent;
 import com.henry.event.EventEntity;
 import com.henry.event.UpdateUserEvent;
 import com.henry.event.UpdateUserPasswordEvent;
 import com.henry.repository.UserRepository;
 import com.henry.util.MappingUtils;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,6 +28,7 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(indexes = {
+        @Index(name = "id_version_idx", columnList = "id,version"),
         @Index(name = "username_idx", columnList = "username")
 })
 public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> {
@@ -38,6 +40,9 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
     private String username;
     private String password;
     private UserStatus status;
+    @Column(columnDefinition = CustomJDBCType.JSON)
+    @Convert(converter = JDBCConverterToJson.class)
+    private List<UserRole> authorities;
 
     @Override
     public Class<?> loadRepositoryClazz() {

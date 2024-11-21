@@ -1,5 +1,6 @@
 package com.henry.event;
 
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
 import com.henry.event.base.BaseUserEvent;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +22,6 @@ public class CreateUserEvent extends BaseUserEvent {
     private String fullName;
     private Date dateOfBirth;
     private UserStatus status;
+    private List<UserRole> authorities;
     private String actionUser;
 }
