@@ -1,22 +1,18 @@
 package com.henry.aggregate;
 
 import com.henry.base.aggregate.DomainAggregate;
-import com.henry.command.CreateUserCommand;
-import com.henry.command.IUserCommand;
-import com.henry.command.UpdateUserCommand;
-import com.henry.command.UpdateUserPasswordCommand;
+import com.henry.command.*;
 import com.henry.constant.CustomJDBCType;
-import com.henry.constant.UserRole;
-import com.henry.constant.UserStatus;
-import com.henry.converter.JDBCConverterToJson;
-import com.henry.event.CreateUserEvent;
-import com.henry.event.EventEntity;
-import com.henry.event.UpdateUserEvent;
-import com.henry.event.UpdateUserPasswordEvent;
+import com.henry.event.*;
 import com.henry.repository.UserRepository;
 import com.henry.util.MappingUtils;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Date;
 import java.util.List;
@@ -33,16 +29,15 @@ import java.util.List;
 })
 public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> {
     private String fullName;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Date dateOfBirth;
     private String phoneNumber;
     private String email;
     private String username;
     private String password;
-    private UserStatus status;
+    private Integer status;
     @Column(columnDefinition = CustomJDBCType.JSON)
-    @Convert(converter = JDBCConverterToJson.class)
-    private List<UserRole> authorities;
+    @JdbcTypeCode(SqlTypes.JSON)
+    private List<Integer> authorities;
 
     @Override
     public Class<?> loadRepositoryClazz() {
@@ -68,6 +63,13 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
             UpdateUserPasswordEvent event = MappingUtils.mapObject(command, UpdateUserPasswordEvent.class);
             MappingUtils.mapObject(event, this);
             return EventEntity.mapEventEntity(this.getId(), command, UpdateUserPasswordEvent.class.getSimpleName(), null);
+
+        } else if (iUserCommand instanceof BlockUserCommand) {
+            BlockUserCommand command = MappingUtils.mapObject(iUserCommand, BlockUserCommand.class);
+            BlockUserEvent event = MappingUtils.mapObject(command, BlockUserEvent.class);
+            MappingUtils.mapObject(event, this);
+            return EventEntity.mapEventEntity(this.getId(), command, BlockUserEvent.class.getSimpleName(), null);
+
         }
         return null;
     }

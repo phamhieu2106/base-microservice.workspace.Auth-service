@@ -3,9 +3,7 @@ package com.henry.workflow;
 import com.henry.base.workflow.BaseWorkFlow;
 import com.henry.constant.AuthActionType;
 import com.henry.constant.WorkflowTopic;
-import com.henry.event.CreateUserEvent;
-import com.henry.event.EventEntity;
-import com.henry.event.UpdateUserEvent;
+import com.henry.event.*;
 import com.henry.function.SyncUserViewFunc;
 import com.henry.utils.EventEntityMapperUtils;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -37,6 +35,14 @@ public class UserWorkflow extends BaseWorkFlow {
             return;
         } else if (Objects.equals(UpdateUserEvent.class.getSimpleName(), eventEntity.getEventType())) {
             logger.info(">>>>>>>>>>> UpdateUserEvent with version: {} entityId: {} <<<<<<<<<<<", eventEntity.getId(), eventEntity.getEntityId());
+            applicationContext.getBean(SyncUserViewFunc.class).exec(eventEntity.getEntityId(), eventEntity.getId(), AuthActionType.UPDATED);
+            return;
+        } else if (Objects.equals(UpdateUserPasswordEvent.class.getSimpleName(), eventEntity.getEventType())) {
+            logger.info(">>>>>>>>>>> UpdateUserPasswordEvent with version: {} entityId: {} <<<<<<<<<<<", eventEntity.getId(), eventEntity.getEntityId());
+            applicationContext.getBean(SyncUserViewFunc.class).exec(eventEntity.getEntityId(), eventEntity.getId(), AuthActionType.UPDATED);
+            return;
+        } else if (Objects.equals(BlockUserEvent.class.getSimpleName(), eventEntity.getEventType())) {
+            logger.info(">>>>>>>>>>> BlockUserEvent with version: {} entityId: {} <<<<<<<<<<<", eventEntity.getId(), eventEntity.getEntityId());
             applicationContext.getBean(SyncUserViewFunc.class).exec(eventEntity.getEntityId(), eventEntity.getId(), AuthActionType.UPDATED);
             return;
         }

@@ -9,6 +9,7 @@ import com.henry.util.ElasticsearchUtils;
 import com.henry.util.PageableUtils;
 import com.henry.view.UserView;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,6 @@ public class QueryUserFunc extends BaseFunc {
         List<String> fieldKeywords = List.of("fullName");
         Query boolQuery = ElasticsearchUtils.buildQueryBuilderWithFields(fieldKeywords, request.getKeyword());
 
-
         List<Query> queryFilters = new ArrayList<>();
 
         if (StringUtils.isNotBlank(request.getPhoneNumber())) {
@@ -48,8 +48,18 @@ public class QueryUserFunc extends BaseFunc {
             queryFilters.add(ElasticsearchUtils.buildFilterQueryWithValue("username", request.getUsername()));
         }
 
-        if (ObjectUtils.isNotEmpty(request.getStatus())) {
+        if (CollectionUtils.isNotEmpty(request.getStatus())) {
             queryFilters.add(ElasticsearchUtils.buildFilterQueryWithValues("status", request.getStatus()));
+        }
+
+        if (ObjectUtils.isNotEmpty(request.getFromCreatedDate()) || ObjectUtils.isNotEmpty(request.getToCreatedDate())) {
+            queryFilters.add(ElasticsearchUtils.buildFilterQueryWithRangeDate("createdDate", request.getFromCreatedDate(),
+                    request.getToCreatedDate()));
+        }
+
+        if (ObjectUtils.isNotEmpty(request.getFromDateOfBirth()) || ObjectUtils.isNotEmpty(request.getToDateOfBirth())) {
+            queryFilters.add(ElasticsearchUtils.buildFilterQueryWithRangeDate("dateOfBirth", request.getFromDateOfBirth(),
+                    request.getToDateOfBirth()));
         }
 
         queryBuilder.withQuery(boolQuery);

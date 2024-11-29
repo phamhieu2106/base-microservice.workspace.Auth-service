@@ -1,6 +1,5 @@
 package com.henry.command;
 
-import com.henry.constant.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +13,6 @@ import java.util.Date;
 @Setter
 public class UpdateUserPasswordCommand implements IUserCommand {
     private String password;
-    private UserStatus status;
+    private Integer status;
     private Date updatedDate;
 }

@@ -20,13 +20,18 @@ public class SyncUserViewFunc extends BaseFunc {
     private final UserViewRepository userViewRepository;
 
     public void exec(String entityId, String version, AuthActionType actionType) {
-        UserAggregate userAggregate = userRepository.findByVersionAndId(version, entityId).orElse(null);
-        if (ObjectUtils.isNotEmpty(userAggregate)) {
-            UserView userView = MappingUtils.mapObject(userAggregate, UserView.class);
-            userView.setFullNameSort(StringUtils.convertSortStringView(userAggregate.getFullName()));
-            userViewRepository.save(userView);
-            logger.info("Sync UserView Successfully with id: {} version: {} with action: {}", entityId, version, actionType);
+        try {
+            UserAggregate userAggregate = userRepository.findByVersionAndId(version, entityId).orElse(null);
+            if (ObjectUtils.isNotEmpty(userAggregate)) {
+                UserView userView = MappingUtils.mapObject(userAggregate, UserView.class);
+                userView.setFullNameSort(StringUtils.convertSortStringView(userAggregate.getFullName()));
+                userView.setCreatedDate(userAggregate.getCreatedDate());
+                userViewRepository.save(userView);
+                logger.info("Sync UserView Successfully with id: {} version: {} with action: {}", entityId, version, actionType);
+            }
+        } catch (Exception e) {
+            logger.error("Sync UserView Failed with id: {} version: {} with action: {}", entityId, version, actionType);
+            logger.error("Error: {}", e.getMessage());
         }
-        logger.error("Sync UserView Failed with id: {} version: {} with action: {}", entityId, version, actionType);
     }
 }

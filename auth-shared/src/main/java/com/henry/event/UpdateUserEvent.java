@@ -1,6 +1,5 @@
 package com.henry.event;
 
-import com.henry.constant.UserRole;
 import com.henry.event.base.BaseUserEvent;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,6 +18,6 @@ public class UpdateUserEvent extends BaseUserEvent {
     private String email;
     private String fullName;
     private Date dateOfBirth;
-    private List<UserRole> authorities;
+    private List<Integer> authorities;
     private String actionUser;
 }

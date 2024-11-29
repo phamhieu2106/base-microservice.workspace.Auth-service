@@ -1,6 +1,5 @@
 package com.henry.view;
 
-import com.henry.constant.UserStatus;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,5 +33,7 @@ public class UserView {
     @Field(type = FieldType.Keyword)
     private String username;
     @Field(type = FieldType.Keyword)
-    private UserStatus status;
+    private Integer status;
+    @Field(type = FieldType.Date)
+    private Date createdDate;
 }

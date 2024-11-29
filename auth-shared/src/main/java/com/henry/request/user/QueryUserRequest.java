@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -19,4 +20,10 @@ public class QueryUserRequest extends BasePageSortRequest {
     private String email;
     private String username;
     private List<String> status;
+
+    private Date fromDateOfBirth;
+    private Date toDateOfBirth;
+
+    private Date fromCreatedDate;
+    private Date toCreatedDate;
 }

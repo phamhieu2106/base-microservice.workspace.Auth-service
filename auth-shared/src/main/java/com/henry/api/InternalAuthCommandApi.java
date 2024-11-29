@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "auth-command", path = "/internal/api/auth-command", url = "${henry.auth-command.api}")
+@FeignClient(name = "auth-command", path = "internal/api/auth-command", url = "${henry.auth-command.api}")
 public interface InternalAuthCommandApi {
     //User
     @PostMapping("/users/create")

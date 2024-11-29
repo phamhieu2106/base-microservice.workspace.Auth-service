@@ -3,6 +3,7 @@ package com.henry.controller;
 import com.henry.base.controller.BaseController;
 import com.henry.base.domain.response.WrapResponse;
 import com.henry.func.test_func.CreateUsersFunc;
+import com.henry.func.user.BlockUserFunc;
 import com.henry.func.user.ConfirmActiveUserFunc;
 import com.henry.func.user.CreateUserFunc;
 import com.henry.func.user.UpdateUserFunc;
@@ -42,9 +43,10 @@ public class UserController extends BaseController {
                 -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(id)), executorService);
     }
 
-    @PostMapping("/disable/{id}")
-    public CompletableFuture<WrapResponse<String>> disable(@PathVariable String id) {
-        return CompletableFuture.supplyAsync(() -> WrapResponse.ok("OK"));
+    @GetMapping("/block/{id}")
+    public CompletableFuture<WrapResponse<String>> block(@PathVariable String id) {
+        return CompletableFuture.supplyAsync(()
+                -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id)), executorService);
     }
 
 }

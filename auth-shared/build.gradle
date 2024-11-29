@@ -23,6 +23,7 @@ dependencies {
     implementation project(path: ':workspace:shared:shared-elasticsearch', configuration: 'default')
     implementation project(path: ':workspace:shared:shared-redis', configuration: 'default')
     implementation project(path: ':workspace:shared:shared-mvc', configuration: 'default')
+    implementation project(path: ':workspace:shared:shared-notification', configuration: 'default')
 }
 
 test {

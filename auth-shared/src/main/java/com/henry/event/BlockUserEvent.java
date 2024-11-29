@@ -12,8 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UpdateUserPasswordEvent extends BaseUserEvent {
+public class BlockUserEvent extends BaseUserEvent {
     private Integer status;
-    private String password;
     private Date updatedDate;
 }

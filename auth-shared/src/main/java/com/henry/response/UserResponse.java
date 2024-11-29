@@ -1,6 +1,5 @@
 package com.henry.response;
 
-import com.henry.constant.UserStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,5 +19,6 @@ public class UserResponse {
     private String phoneNumber;
     private String email;
     private String username;
-    private UserStatus status;
+    private Integer status;
+    private Date createdDate;
 }
