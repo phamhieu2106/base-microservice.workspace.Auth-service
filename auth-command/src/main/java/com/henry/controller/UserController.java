@@ -7,6 +7,7 @@ import com.henry.func.user.BlockUserFunc;
 import com.henry.func.user.ConfirmActiveUserFunc;
 import com.henry.func.user.CreateUserFunc;
 import com.henry.func.user.UpdateUserFunc;
+import com.henry.request.user.BlockUserRequest;
 import com.henry.request.user.CreateUserRequest;
 import com.henry.request.user.UpdateUserRequest;
 import jakarta.validation.Valid;
@@ -43,10 +44,10 @@ public class UserController extends BaseController {
                 -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(id)), executorService);
     }
 
-    @GetMapping("/block/{id}")
-    public CompletableFuture<WrapResponse<String>> block(@PathVariable String id) {
+    @PostMapping("/block/{id}")
+    public CompletableFuture<WrapResponse<String>> block(@PathVariable String id, @Valid @RequestBody BlockUserRequest request) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id)), executorService);
+                -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id, request)), executorService);
     }
 
 }

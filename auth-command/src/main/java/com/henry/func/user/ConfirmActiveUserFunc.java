@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class ConfirmActiveUserFunc extends BaseFunc {
-
     private final UserRepository userRepository;
     private final NotificationUtils notificationUtils;
 
@@ -27,7 +26,6 @@ public class ConfirmActiveUserFunc extends BaseFunc {
         }
 
         notificationUtils.createNotificationBlockUser(userAggregate.getUsername());
-
         return userAggregate.getId();
     }
 }
