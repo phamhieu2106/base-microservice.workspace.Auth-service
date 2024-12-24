@@ -1,5 +1,6 @@
 package com.henry.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,10 +9,13 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@RequiredArgsConstructor
 public class ResourceConfig {
 
     @Value("${environment.debug}")
     private boolean IS_DEVELOP;
+
+//    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -22,6 +26,7 @@ public class ResourceConfig {
         } else {
             http
                     .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+//                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         }
         return http.build();
     }

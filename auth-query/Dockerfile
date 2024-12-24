@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk-slim
 
-# Copy file JAR từ thư mục build/libs/
-COPY ./build/libs/auth-query-1.0.0.jar /app/auth-query.jar
+# Copy file JAR từ thư mục com.henry.build/libs/
+COPY ./com.henry.build/libs/auth-query-1.0.0.jar /app/auth-query.jar
 
 # Mở port cho service
 EXPOSE 8003

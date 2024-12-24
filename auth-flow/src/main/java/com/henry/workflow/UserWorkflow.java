@@ -19,7 +19,6 @@ public class UserWorkflow extends BaseWorkFlow {
     @KafkaListener(topics = WorkflowTopic.AUTH_EVENT_TOPIC, groupId = WorkflowTopic.WORK_FLOW_GROUP_ID)
     @Retryable
     public void handleUserWorkflowEvent(String message) {
-        logger.info(">>>>>>>>>>> UserWorkFlow received event <<<<<<<<<<<<");
         try {
             EventEntity eventEntity = EventEntityMapperUtils.mapDataToEventEntity(message);
             handleEvent(eventEntity);
@@ -43,7 +42,7 @@ public class UserWorkflow extends BaseWorkFlow {
             return;
         } else if (Objects.equals(BlockUserEvent.class.getSimpleName(), eventEntity.getEventType())) {
             logger.info(">>>>>>>>>>> BlockUserEvent with version: {} entityId: {} <<<<<<<<<<<", eventEntity.getId(), eventEntity.getEntityId());
-            applicationContext.getBean(SyncUserViewFunc.class).exec(eventEntity.getEntityId(), eventEntity.getId(), AuthActionType.UPDATED);
+            applicationContext.getBean(SyncUserViewFunc.class).exec(eventEntity.getEntityId(), eventEntity.getId(), AuthActionType.BLOCKED);
             return;
         }
 

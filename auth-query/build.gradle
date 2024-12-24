@@ -9,9 +9,6 @@ repositories {
     mavenCentral()
 }
 
-springBoot {
-    mainClass = 'com.henry.AuthQueryApplication'
-}
 
 dependencies {
     implementation project(path: ':workspace:auth-service:auth-domain', configuration: 'default')

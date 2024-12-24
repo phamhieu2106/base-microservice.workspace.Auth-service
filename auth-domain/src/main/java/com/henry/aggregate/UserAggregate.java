@@ -71,6 +71,6 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
             return EventEntity.mapEventEntity(this.getId(), command, BlockUserEvent.class.getSimpleName(), null);
 
         }
-        return null;
+        return new EventEntity();
     }
 }
