@@ -25,7 +25,6 @@ public class ConfirmActiveUserFunc extends BaseFunc {
             throw new ServiceException(AuthErrorCode.USER_ACTIVE_NOT_AVAILABLE);
         }
 
-        notificationUtils.createNotificationBlockUser(userAggregate.getUsername());
         return userAggregate.getId();
     }
 }
