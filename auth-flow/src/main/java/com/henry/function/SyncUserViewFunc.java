@@ -23,7 +23,7 @@ public class SyncUserViewFunc extends BaseFunc {
     public void exec(String entityId, String version, AuthActionType actionType) {
         try {
             Optional<UserAggregate> userAggregateOpt = userRepository.findById(entityId);
-            userAggregateOpt.ifPresent(userAggregate -> execInLock(userAggregate.getId() + UserAggregate.class,
+            userAggregateOpt.ifPresentOrElse(userAggregate -> execInLock(userAggregate.getId() + UserAggregate.class,
                     () -> {
                         UserView userView = MappingUtils.mapObject(userAggregate, UserView.class);
                         userView.setFullNameSort(StringUtils.convertSortStringView(userAggregate.getFullName()));
@@ -31,9 +31,7 @@ public class SyncUserViewFunc extends BaseFunc {
                         userViewRepository.save(userView);
                         logger.info("Sync UserView Successfully with id: {} version: {} with action: {}", entityId, version, actionType.toString());
                         return this;
-                    }));
-
-
+                    }), () -> logger.error("Sync UserView with id: {} not found", entityId));
         } catch (Exception e) {
             logger.error("Sync UserView Failed with id: {} version: {} with action: {}", entityId, version, actionType.toString());
             logger.error("Error: {}", e.getMessage());

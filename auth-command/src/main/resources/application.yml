@@ -22,7 +22,7 @@ prefix:
   api: ${PREFIX_URL}
 
 environment:
-  debug: true
+  debug: ${DEBUG}
 
 henry:
   auth-command:

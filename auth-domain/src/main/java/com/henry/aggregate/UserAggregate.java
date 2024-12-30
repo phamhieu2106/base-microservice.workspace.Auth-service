@@ -2,7 +2,7 @@ package com.henry.aggregate;
 
 import com.henry.base.aggregate.DomainAggregate;
 import com.henry.command.*;
-import com.henry.constant.CustomJDBCType;
+import com.henry.constant.JDBCCustomType;
 import com.henry.event.*;
 import com.henry.repository.UserRepository;
 import com.henry.util.MappingUtils;
@@ -35,7 +35,7 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
     private String username;
     private String password;
     private Integer status;
-    @Column(columnDefinition = CustomJDBCType.JSON)
+    @Column(columnDefinition = JDBCCustomType.JSON)
     @JdbcTypeCode(SqlTypes.JSON)
     private List<Integer> authorities;
 

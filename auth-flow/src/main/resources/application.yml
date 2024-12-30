@@ -20,4 +20,4 @@ server:
 
 
 environment:
-  debug: true
+  debug: ${DEBUG}
