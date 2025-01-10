@@ -4,7 +4,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.henry.base.func.BaseFunc;
 import com.henry.request.user.QueryUserRequest;
 import com.henry.response.UserResponse;
-import com.henry.util.ElasticsearchRepository;
+import com.henry.util.ElasticsearchRepositoryUtil;
 import com.henry.util.ElasticsearchUtils;
 import com.henry.util.PageableUtils;
 import com.henry.view.UserView;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class QueryUserFunc extends BaseFunc {
 
-    private final ElasticsearchRepository elasticsearchRepository;
+    private final ElasticsearchRepositoryUtil elasticsearchRepositoryUtil;
 
     public Page<UserResponse> exec(QueryUserRequest request) {
         Pageable pageable = PageableUtils.convertToPageable(request.getPageNumber(), request.getPageSize());
@@ -68,6 +68,6 @@ public class QueryUserFunc extends BaseFunc {
         logger.info("Executing QueryUserFunc filter {}", queryBuilder.getFilter());
         logger.info("Executing QueryUserFunc query {}", queryBuilder.getQuery());
 
-        return elasticsearchRepository.searchPage(queryBuilder.build(), UserView.class, UserResponse.class);
+        return elasticsearchRepositoryUtil.searchPage(queryBuilder.build(), UserView.class, UserResponse.class);
     }
 }
