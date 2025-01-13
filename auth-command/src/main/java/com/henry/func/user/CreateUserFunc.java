@@ -10,8 +10,10 @@ import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
 import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
+import com.henry.entity.UserHistoryEntity;
+import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
-import com.henry.request.user.CreateUserRequest;
+import com.henry.request.CreateUserRequest;
 import com.henry.util.MappingUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +29,7 @@ public class CreateUserFunc extends BaseFunc {
 
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
     private final UserRepository userRepository;
-    private final HistoryUtils historyUtils;
+    private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(CreateUserRequest request) {
         validateRequest(request);

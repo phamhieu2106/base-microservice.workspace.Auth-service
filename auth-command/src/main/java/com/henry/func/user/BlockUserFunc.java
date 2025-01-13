@@ -8,10 +8,14 @@ import com.henry.base.func.BaseFunc;
 import com.henry.command.BlockUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
+import com.henry.entity.UserHistoryEntity;
+import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
-import com.henry.request.user.BlockUserRequest;
+import com.henry.request.BlockUserRequest;
 import com.henry.util.NotificationUtils;
+import com.henry.util.PermissionUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,9 +30,12 @@ public class BlockUserFunc extends BaseFunc {
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
     private final UserRepository userRepository;
     private final NotificationUtils notificationUtils;
-    private final HistoryUtils historyUtils;
+    private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(String id, BlockUserRequest request) {
+        PermissionUtils.hasPermission(UserRole.ADMIN);
+
+
         UserAggregate userAggregate = userRepository.findById(id).orElseThrow(()
                 -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 

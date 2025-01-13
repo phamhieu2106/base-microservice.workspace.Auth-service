@@ -2,14 +2,14 @@ package com.henry.controller;
 
 import com.henry.base.controller.BaseController;
 import com.henry.base.domain.response.WrapResponse;
+import com.henry.constant.UserRole;
 import com.henry.func.test_func.CreateUsersFunc;
-import com.henry.func.user.BlockUserFunc;
-import com.henry.func.user.ConfirmActiveUserFunc;
-import com.henry.func.user.CreateUserFunc;
-import com.henry.func.user.UpdateUserFunc;
-import com.henry.request.user.BlockUserRequest;
-import com.henry.request.user.CreateUserRequest;
-import com.henry.request.user.UpdateUserRequest;
+import com.henry.func.user.*;
+import com.henry.request.BlockUserRequest;
+import com.henry.request.CreateUserRequest;
+import com.henry.request.UpdateUserPasswordRequest;
+import com.henry.request.UpdateUserRequest;
+import com.henry.util.PermissionUtils;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +22,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/create")
     public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request) {
+        PermissionUtils.hasPermission(UserRole.ADMIN);
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request)), executorService);
     }
@@ -50,4 +51,9 @@ public class UserController extends BaseController {
                 -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id, request)), executorService);
     }
 
+    @PostMapping("/update-user-password")
+    public CompletableFuture<WrapResponse<String>> updateUserPassword(@Valid @RequestBody UpdateUserPasswordRequest request) {
+        return CompletableFuture.supplyAsync(()
+                -> WrapResponse.ok(applicationContext.getBean(UpdateUserPasswordFunc.class).exec(request)));
+    }
 }

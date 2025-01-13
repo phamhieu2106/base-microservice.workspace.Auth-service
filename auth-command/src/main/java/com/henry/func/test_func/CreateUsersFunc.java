@@ -7,7 +7,7 @@ import com.henry.command.CreateUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.UserStatus;
 import com.henry.repository.UserRepository;
-import com.henry.request.user.CreateUserRequest;
+import com.henry.request.CreateUserRequest;
 import com.henry.util.MappingUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

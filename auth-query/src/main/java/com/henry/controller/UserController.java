@@ -2,12 +2,12 @@ package com.henry.controller;
 
 import com.henry.base.controller.BaseController;
 import com.henry.base.domain.response.WrapResponse;
-import com.henry.base.func.QueryHistoryFunc;
 import com.henry.base.request.QueryHistoryRequest;
 import com.henry.base.response.HistoryResponse;
 import com.henry.function.FindUserByIdFunc;
 import com.henry.function.QueryUserFunc;
-import com.henry.request.user.QueryUserRequest;
+import com.henry.function.QueryUserHistoryFunc;
+import com.henry.request.QueryUserRequest;
 import com.henry.response.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
@@ -34,6 +34,6 @@ public class UserController extends BaseController {
     @PostMapping("/search-histories")
     public CompletableFuture<WrapResponse<Page<HistoryResponse>>> searchHistories(@Valid @RequestBody QueryHistoryRequest request) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(QueryHistoryFunc.class).exec(request)));
+                -> WrapResponse.ok(applicationContext.getBean(QueryUserHistoryFunc.class).exec(request)));
     }
 }

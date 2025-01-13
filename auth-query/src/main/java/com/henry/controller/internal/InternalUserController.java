@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/internal/${prefix.api}/${spring.application.name}/users")
+@RequestMapping("/internal/${prefix.api}/${spring.application.name}")
 public class InternalUserController extends BaseController {
 
-    @GetMapping("/exit-by-username/{username}")
+    @GetMapping("/users/exit-by-username/{username}")
     public WrapResponse<Boolean> exitByUsername(@PathVariable String username) {
         return WrapResponse.ok(applicationContext.getBean(ExitUserByUsernameFunc.class).exec(username));
     }

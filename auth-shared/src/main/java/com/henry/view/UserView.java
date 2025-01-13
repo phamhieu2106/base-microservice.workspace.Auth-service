@@ -15,7 +15,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(indexName = "user")
+@Document(indexName = "users")
 public class UserView {
     @Id
     @Field(type = FieldType.Keyword)

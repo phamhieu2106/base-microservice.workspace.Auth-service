@@ -2,11 +2,13 @@ package com.henry.function;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import com.henry.base.func.BaseFunc;
-import com.henry.request.user.QueryUserRequest;
+import com.henry.constant.UserRole;
+import com.henry.request.QueryUserRequest;
 import com.henry.response.UserResponse;
 import com.henry.util.ElasticsearchRepositoryUtil;
 import com.henry.util.ElasticsearchUtils;
 import com.henry.util.PageableUtils;
+import com.henry.util.PermissionUtils;
 import com.henry.view.UserView;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -27,6 +29,7 @@ public class QueryUserFunc extends BaseFunc {
     private final ElasticsearchRepositoryUtil elasticsearchRepositoryUtil;
 
     public Page<UserResponse> exec(QueryUserRequest request) {
+        PermissionUtils.hasPermission(UserRole.ADMIN);
         Pageable pageable = PageableUtils.convertToPageable(request.getPageNumber(), request.getPageSize());
         NativeQueryBuilder queryBuilder = ElasticsearchUtils.getQueryBuildersSort(new NativeQueryBuilder(), request.getSorts());
         queryBuilder.withPageable(pageable);

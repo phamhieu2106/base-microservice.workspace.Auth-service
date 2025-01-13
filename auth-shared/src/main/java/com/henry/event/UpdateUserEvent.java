@@ -18,6 +18,6 @@ public class UpdateUserEvent extends BaseUserEvent {
     private String email;
     private String fullName;
     private Date dateOfBirth;
-    private List<Integer> authorities;
+    private List<String> authorities;
     private String actionUser;
 }

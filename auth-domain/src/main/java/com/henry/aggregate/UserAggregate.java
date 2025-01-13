@@ -37,7 +37,7 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
     private Integer status;
     @Column(columnDefinition = JDBCCustomType.JSON)
     @JdbcTypeCode(SqlTypes.JSON)
-    private List<Integer> authorities;
+    private List<String> authorities;
 
     @Override
     public Class<?> loadRepositoryClazz() {
