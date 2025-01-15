@@ -4,11 +4,9 @@ import com.henry.aggregate.UserAggregate;
 import com.henry.base.exception.ServiceException;
 import com.henry.base.func.BaseFunc;
 import com.henry.constant.AuthErrorCode;
-import com.henry.constant.UserRole;
 import com.henry.repository.UserRepository;
 import com.henry.response.UserResponse;
 import com.henry.util.MappingUtils;
-import com.henry.util.PermissionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +17,7 @@ public class FindUserByIdFunc extends BaseFunc {
     private final UserRepository userRepository;
 
     public UserResponse exec(String id) {
-        PermissionUtils.hasPermission(UserRole.ADMIN);
+//        PermissionUtils.hasPermission(UserRole.ADMIN);
         UserAggregate userAggregate = userRepository.findById(id).orElseThrow(()
                 -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 

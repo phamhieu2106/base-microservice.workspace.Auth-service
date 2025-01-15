@@ -14,15 +14,15 @@ repositories {
 }
 
 dependencies {
-    implementation project(path: ':workspace:shared:shared-base', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-auth', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-eventsourcingbase', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-eventsourcing', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-database', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-rabbitmq', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-elasticsearch', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-mvc', configuration: 'default')
-    implementation project(path: ':workspace:shared:shared-notification', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-base', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-auth', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-eventsourcingbase', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-eventsourcing', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-database', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-rabbitmq', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-elasticsearch', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-mvc', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-notification', configuration: 'default')
 }
 
 test {

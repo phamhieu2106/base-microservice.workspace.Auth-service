@@ -22,18 +22,18 @@ public class UserController extends BaseController {
     @GetMapping("/find-by-id/{id}")
     public CompletableFuture<WrapResponse<UserResponse>> findById(@PathVariable String id) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(FindUserByIdFunc.class).exec(id)));
+                -> WrapResponse.ok(applicationContext.getBean(FindUserByIdFunc.class).exec(id)), executorService);
     }
 
     @PostMapping("/search")
     public CompletableFuture<WrapResponse<Page<UserResponse>>> search(@Valid @RequestBody QueryUserRequest request) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(QueryUserFunc.class).exec(request)));
+                -> WrapResponse.ok(applicationContext.getBean(QueryUserFunc.class).exec(request)), executorService);
     }
 
     @PostMapping("/search-histories")
     public CompletableFuture<WrapResponse<Page<HistoryResponse>>> searchHistories(@Valid @RequestBody QueryHistoryRequest request) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(QueryUserHistoryFunc.class).exec(request)));
+                -> WrapResponse.ok(applicationContext.getBean(QueryUserHistoryFunc.class).exec(request)), executorService);
     }
 }

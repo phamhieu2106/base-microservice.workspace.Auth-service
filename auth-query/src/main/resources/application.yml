@@ -23,6 +23,11 @@ prefix:
 environment:
   debug: ${DEBUG}
 
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
 henry:
   auth-command:
     api: localhost:8001
