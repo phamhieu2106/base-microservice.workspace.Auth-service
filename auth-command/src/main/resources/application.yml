@@ -12,20 +12,18 @@ spring:
     open-in-view: off
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DOCKER_POSTGRES_URL}/henry-event?currentSchema=auth_event
-    username: ${DOCKER_POSTGRES_USERNAME}
-    password: ${DOCKER_POSTGRES_PASSWORD}
+    url: jdbc:postgresql://${dockerPostgresUrl}/${dockerPostgresDatabase}?currentSchema=auth_event
+    username: ${dockerPostgresUsername}
+    password: ${dockerPostgresPassword}
 server:
   port: 8001
-
-prefix:
-  api: ${PREFIX_URL}
-
-environment:
-  debug: ${DEBUG}
 
 henry:
   auth-command:
     api: localhost:8001
   auth-query:
     api: localhost:8003
+  prefix:
+    api: ${prefixUrl}
+  environment:
+    debug: ${debug}

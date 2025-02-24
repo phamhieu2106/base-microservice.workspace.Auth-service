@@ -19,11 +19,10 @@ server:
   port: 8002
 
 
-environment:
-  debug: ${DEBUG}
-
 henry:
   auth-command:
     api: localhost:8001
   auth-query:
     api: localhost:8003
+  environment:
+    debug: ${DEBUG}

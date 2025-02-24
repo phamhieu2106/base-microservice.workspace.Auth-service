@@ -17,15 +17,7 @@ spring:
     password: ${DOCKER_POSTGRES_PASSWORD}
 server:
   port: 8003
-prefix:
-  api: ${PREFIX_URL}
 
-environment:
-  debug: ${DEBUG}
-
-logging:
-  level:
-    org.springframework.security: DEBUG
 
 
 henry:
@@ -33,3 +25,7 @@ henry:
     api: localhost:8001
   auth-query:
     api: localhost:8003
+  environment:
+    debug: ${DEBUG}
+  prefix:
+    api: ${PREFIX_URL}

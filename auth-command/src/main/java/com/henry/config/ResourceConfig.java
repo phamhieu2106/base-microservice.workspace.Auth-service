@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class ResourceConfig {
 
-    @Value("${environment.debug}")
+    @Value("${henry.environment.debug}")
     private boolean IS_DEVELOP;
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;

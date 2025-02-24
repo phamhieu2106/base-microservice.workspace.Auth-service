@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("${prefix.api}/${spring.application.name}/users")
+@RequestMapping("${henry.prefix.api}/${spring.application.name}/users")
 public class UserController extends BaseController {
 
     @PostMapping("/create")

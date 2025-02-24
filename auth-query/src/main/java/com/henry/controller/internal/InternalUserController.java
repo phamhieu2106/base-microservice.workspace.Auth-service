@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/internal/${prefix.api}/${spring.application.name}")
+@RequestMapping("/internal/${henry.prefix.api}/${spring.application.name}")
 public class InternalUserController extends BaseController {
 
     @GetMapping("/users/exit-by-username/{username}")

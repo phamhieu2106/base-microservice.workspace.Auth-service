@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class ResourceConfig {
 
-    @Value("${environment.debug}")
+    @Value("${henry.environment.debug}")
     private boolean IS_DEVELOP;
 
     @Bean

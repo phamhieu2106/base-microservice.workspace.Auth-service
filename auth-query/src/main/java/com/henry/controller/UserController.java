@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("${prefix.api}/${spring.application.name}/users")
+@RequestMapping("${henry.prefix.api}/${spring.application.name}/users")
 public class UserController extends BaseController {
 
     @GetMapping("/find-by-id/{id}")

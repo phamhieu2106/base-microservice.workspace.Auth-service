@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/internal/${prefix.api}/${spring.application.name}/users")
+@RequestMapping("/internal/${henry.prefix.api}/${spring.application.name}/users")
 public class InternalUserController extends BaseController {
 
     @PostMapping("/create")
