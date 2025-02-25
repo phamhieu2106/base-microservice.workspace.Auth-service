@@ -31,7 +31,7 @@ public class CreateUserFunc extends BaseFunc {
     private final UserRepository userRepository;
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
-    public String exec(CreateUserRequest request) {
+    public String exec(CreateUserRequest request, String currentUsername) {
         validateRequest(request);
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);

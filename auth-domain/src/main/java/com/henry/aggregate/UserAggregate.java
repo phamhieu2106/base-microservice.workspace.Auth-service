@@ -1,10 +1,14 @@
 package com.henry.aggregate;
 
+import com.henry.base.Event;
 import com.henry.base.aggregate.DomainAggregate;
+import com.henry.base.util.EventUtils;
 import com.henry.command.*;
 import com.henry.constant.JDBCCustomType;
-import com.henry.event.*;
-import com.henry.repository.UserRepository;
+import com.henry.event.BlockUserEvent;
+import com.henry.event.CreateUserEvent;
+import com.henry.event.UpdateUserEvent;
+import com.henry.event.UpdateUserPasswordEvent;
 import com.henry.util.MappingUtils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,38 +43,39 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
     @JdbcTypeCode(SqlTypes.JSON)
     private List<String> authorities;
 
-    @Override
-    public Class<?> loadRepositoryClazz() {
-        return UserRepository.class;
+    public Event process(CreateUserCommand command) {
+        CreateUserEvent event = MappingUtils.mapObject(command, CreateUserEvent.class);
+        return EventUtils.getEvent(event);
     }
 
-    @Override
-    public EventEntity processCommand(IUserCommand iUserCommand) {
-        if (iUserCommand instanceof CreateUserCommand) {
-            CreateUserCommand command = MappingUtils.mapObject(iUserCommand, CreateUserCommand.class);
-            CreateUserEvent event = MappingUtils.mapObject(command, CreateUserEvent.class);
-            MappingUtils.mapObject(event, this);
-            return EventEntity.mapEventEntity(this.getId(), command, CreateUserEvent.class.getSimpleName(), command.getActionUser());
+    public void apply(CreateUserEvent event) {
+        MappingUtils.mapObject(event, this);
+    }
 
-        } else if (iUserCommand instanceof UpdateUserCommand) {
-            UpdateUserCommand command = MappingUtils.mapObject(iUserCommand, UpdateUserCommand.class);
-            UpdateUserEvent event = MappingUtils.mapObject(command, UpdateUserEvent.class);
-            MappingUtils.mapObject(event, this);
-            return EventEntity.mapEventEntity(this.getId(), command, UpdateUserEvent.class.getSimpleName(), command.getActionUser());
+    public Event process(UpdateUserCommand command) {
+        UpdateUserEvent event = MappingUtils.mapObject(command, UpdateUserEvent.class);
+        return EventUtils.getEvent(event);
+    }
 
-        } else if (iUserCommand instanceof UpdateUserPasswordCommand) {
-            UpdateUserPasswordCommand command = MappingUtils.mapObject(iUserCommand, UpdateUserPasswordCommand.class);
-            UpdateUserPasswordEvent event = MappingUtils.mapObject(command, UpdateUserPasswordEvent.class);
-            MappingUtils.mapObject(event, this);
-            return EventEntity.mapEventEntity(this.getId(), command, UpdateUserPasswordEvent.class.getSimpleName(), null);
+    public void apply(UpdateUserEvent event) {
+        MappingUtils.mapObject(event, this);
+    }
 
-        } else if (iUserCommand instanceof BlockUserCommand) {
-            BlockUserCommand command = MappingUtils.mapObject(iUserCommand, BlockUserCommand.class);
-            BlockUserEvent event = MappingUtils.mapObject(command, BlockUserEvent.class);
-            MappingUtils.mapObject(event, this);
-            return EventEntity.mapEventEntity(this.getId(), command, BlockUserEvent.class.getSimpleName(), null);
+    public Event process(UpdateUserPasswordCommand command) {
+        UpdateUserPasswordEvent event = MappingUtils.mapObject(command, UpdateUserPasswordEvent.class);
+        return EventUtils.getEvent(event);
+    }
 
-        }
-        return new EventEntity();
+    public void apply(UpdateUserPasswordEvent event) {
+        MappingUtils.mapObject(event, this);
+    }
+
+    public Event process(BlockUserCommand command) {
+        BlockUserEvent event = MappingUtils.mapObject(command, BlockUserEvent.class);
+        return EventUtils.getEvent(event);
+    }
+
+    public void apply(BlockUserEvent event) {
+        MappingUtils.mapObject(event, this);
     }
 }

@@ -2,17 +2,16 @@ package com.henry.controller;
 
 import com.henry.base.controller.BaseController;
 import com.henry.base.domain.response.WrapResponse;
-import com.henry.constant.UserRole;
 import com.henry.func.test_func.CreateUsersFunc;
 import com.henry.func.user.*;
 import com.henry.request.BlockUserRequest;
 import com.henry.request.CreateUserRequest;
 import com.henry.request.UpdateUserPasswordRequest;
 import com.henry.request.UpdateUserRequest;
-import com.henry.util.PermissionUtils;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -21,10 +20,9 @@ import java.util.concurrent.CompletableFuture;
 public class UserController extends BaseController {
 
     @PostMapping("/create")
-    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request) {
-        PermissionUtils.hasPermission(UserRole.ADMIN);
+    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, Principal principal) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request)), executorService);
+                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, principal.getName())), executorService);
     }
 
     @PostMapping("/create-users")
