@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -32,13 +33,16 @@ public class CreateUserFunc extends BaseFunc {
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(CreateUserRequest request, String currentUsername) {
+        Date now = new Date();
         validateRequest(request);
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
         command.setStatus(UserStatus.INACTIVE);
         command.setAuthorities(List.of(UserRole.USER));
+        command.setCreatedBy(currentUsername);
+        command.setCreatedDate(now);
         UserAggregate userAggregate = userAggregateRepository.save(command);
-        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.CREATE, null);
+        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.CREATE, null, now);
         return userAggregate.getId();
     }
 

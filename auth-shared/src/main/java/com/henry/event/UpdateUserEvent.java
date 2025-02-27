@@ -19,5 +19,6 @@ public class UpdateUserEvent extends BaseUserEvent {
     private String fullName;
     private Date dateOfBirth;
     private List<String> authorities;
-    private String actionUser;
+    private Date updatedDate;
+    private String lastModifiedBy;
 }

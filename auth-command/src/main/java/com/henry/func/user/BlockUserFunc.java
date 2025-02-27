@@ -8,14 +8,12 @@ import com.henry.base.func.BaseFunc;
 import com.henry.command.BlockUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
-import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
 import com.henry.entity.UserHistoryEntity;
 import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
 import com.henry.request.BlockUserRequest;
 import com.henry.util.NotificationUtils;
-import com.henry.util.PermissionUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -32,19 +30,21 @@ public class BlockUserFunc extends BaseFunc {
     private final NotificationUtils notificationUtils;
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
-    public String exec(String id, BlockUserRequest request) {
-        PermissionUtils.hasPermission(UserRole.ADMIN);
-
+    public String exec(String id, BlockUserRequest request, String currentUsername) {
+        Date now = new Date();
 
         UserAggregate userAggregate = userRepository.findById(id).orElseThrow(()
                 -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 
         BlockUserCommand command = new BlockUserCommand();
         command.setStatus(UserStatus.BLOCKED);
-        command.setUpdatedDate(new Date());
+        command.setUpdatedDate(now);
+        command.setLastModifiedBy(currentUsername);
+        
         userAggregateRepository.update(userAggregate.getId(), command);
 
-        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.BLOCK, request.getContent());
+        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class,
+                HistoryType.BLOCK, request.getContent(), now);
         //send notification for user
         notificationUtils.createNotificationBlockUser(userAggregate.getUsername());
 

@@ -22,4 +22,6 @@ public class CreateUserEvent extends BaseUserEvent {
     private Integer status;
     private List<String> authorities;
     private String actionUser;
+    private String createdBy;
+    private Date createdDate;
 }

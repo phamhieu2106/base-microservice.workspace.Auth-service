@@ -19,7 +19,7 @@ public class ConfirmActiveUserFunc extends BaseFunc {
     private final UserRepository userRepository;
     private final NotificationUtils notificationUtils;
 
-    public String exec(String id) {
+    public String exec(String id, String currentUsername) {
         PermissionUtils.hasPermission(UserRole.ALL_ROLE);
 
         UserAggregate userAggregate = userRepository.findById(id).orElseThrow(()

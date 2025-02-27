@@ -15,4 +15,6 @@ public class UpdateUserPasswordCommand implements IUserCommand {
     private String password;
     private Integer status;
     private Date updatedDate;
+    private String lastModifiedBy;
+
 }

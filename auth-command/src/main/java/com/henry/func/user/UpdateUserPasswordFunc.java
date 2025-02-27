@@ -32,9 +32,9 @@ public class UpdateUserPasswordFunc extends BaseFunc {
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
     private final PasswordEncoder passwordEncoder;
 
-    public String exec(UpdateUserPasswordRequest request) {
+    public String exec(UpdateUserPasswordRequest request, String currentUsername) {
         PermissionUtils.hasPermission(UserRole.ALL_ROLE);
-        
+
         UserAggregate userAggregate = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 
@@ -48,6 +48,7 @@ public class UpdateUserPasswordFunc extends BaseFunc {
         command.setStatus(UserStatus.ACTIVE);
         command.setPassword(passwordEncoder.encode(request.getPassword()));
         command.setUpdatedDate(new Date());
+        command.setLastModifiedBy(currentUsername);
 
         userAggregateRepository.update(userAggregate.getId(), command);
         historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.UPDATE_PASSWORD, null);

@@ -12,4 +12,6 @@ import java.util.Date;
 public class BlockUserCommand implements IUserCommand {
     private Integer status;
     private Date updatedDate;
+    private String lastModifiedBy;
+
 }

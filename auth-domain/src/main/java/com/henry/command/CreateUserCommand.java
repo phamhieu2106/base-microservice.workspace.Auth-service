@@ -18,5 +18,6 @@ public class CreateUserCommand implements IUserCommand {
     private Date dateOfBirth;
     private Integer status;
     private List<String> authorities;
-    private String actionUser;
+    private String createdBy;
+    private Date createdDate;
 }

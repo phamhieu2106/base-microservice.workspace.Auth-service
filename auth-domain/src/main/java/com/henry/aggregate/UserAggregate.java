@@ -31,6 +31,7 @@ import java.util.List;
         @Index(name = "id_version_idx", columnList = "id,version"),
         @Index(name = "username_idx", columnList = "username")
 })
+@SuppressWarnings("unused")
 public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> {
     private String fullName;
     private Date dateOfBirth;
