@@ -9,7 +9,6 @@ import com.henry.request.CreateUserRequest;
 import com.henry.request.UpdateUserPasswordRequest;
 import com.henry.request.UpdateUserRequest;
 import jakarta.validation.Valid;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -21,14 +20,12 @@ import java.util.concurrent.CompletableFuture;
 public class UserController extends BaseController {
 
     @PostMapping("/create")
-    @PreAuthorize("hasRole(T(com.henry.constant.UserRole).ADMIN)")
     public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, Principal principal) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, principal.getName())), executorService);
     }
 
     @PostMapping("/create-users")
-    @PreAuthorize("hasRole(T(com.henry.constant.UserRole).ADMIN)")
     public CompletableFuture<WrapResponse<String>> createUsers(@Valid @RequestBody List<CreateUserRequest> request,
                                                                Principal principal) {
         return CompletableFuture.supplyAsync(()
@@ -36,7 +33,6 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/update/{id}")
-    @PreAuthorize("hasAnyRole(T(com.henry.constant.UserRole).ALL_ROLE)")
     public CompletableFuture<WrapResponse<String>> update(@PathVariable String id, @Valid @RequestBody UpdateUserRequest request,
                                                           Principal principal) {
         return CompletableFuture.supplyAsync(()
@@ -44,14 +40,12 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/confirm-active/{id}")
-    @PreAuthorize("hasAnyRole(T(com.henry.constant.UserRole).ALL_ROLE)")
     public CompletableFuture<WrapResponse<String>> confirm(@PathVariable String id, Principal principal) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(id, principal.getName())), executorService);
     }
 
     @PostMapping("/block/{id}")
-    @PreAuthorize("hasRole(T(com.henry.constant.UserRole).ADMIN)")
     public CompletableFuture<WrapResponse<String>> block(@PathVariable String id, @Valid @RequestBody BlockUserRequest request,
                                                          Principal principal) {
         return CompletableFuture.supplyAsync(()
@@ -59,7 +53,6 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("/update-user-password")
-    @PreAuthorize("hasAnyRole(T(com.henry.constant.UserRole).ALL_ROLE)")
     public CompletableFuture<WrapResponse<String>> updateUserPassword(@Valid @RequestBody UpdateUserPasswordRequest request,
                                                                       Principal principal) {
         return CompletableFuture.supplyAsync(()

@@ -12,9 +12,12 @@ spring:
     open-in-view: off
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DOCKER_POSTGRES_URL}/henry-event?currentSchema=auth_event
-    username: ${DOCKER_POSTGRES_USERNAME}
-    password: ${DOCKER_POSTGRES_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/henry-event?currentSchema=auth_event
+    username: henry
+    password: 123456
+  messages:
+    encoding: UTF-8
+    basename: vi
 server:
   port: 8002
 
@@ -25,4 +28,7 @@ henry:
   auth-query:
     api: localhost:8003
   environment:
-    debug: ${DEBUG}
+    debug: true
+  elasticsearch:
+    port: 9200
+    host: localhost

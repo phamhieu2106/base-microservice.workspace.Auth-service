@@ -7,7 +7,6 @@ import com.henry.event.*;
 import com.henry.function.SyncUserViewFunc;
 import com.henry.utils.EventEntityMapperUtils;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,7 +16,6 @@ import java.util.Objects;
 public class UserWorkflow extends BaseWorkFlow {
 
     @KafkaListener(topics = WorkflowTopic.AUTH_EVENT_TOPIC, groupId = WorkflowTopic.WORK_FLOW_GROUP_ID)
-    @Retryable
     public void handleUserWorkflowEvent(String message) {
         try {
             EventEntity eventEntity = EventEntityMapperUtils.mapDataToEventEntity(message);

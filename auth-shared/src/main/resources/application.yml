@@ -1,2 +1,8 @@
-system:
-  name: ${SYSTEM_NAME}
+spring:
+  messages:
+    encoding: UTF-8
+    basename: vi
+henry:
+  elasticsearch:
+    port: 9200
+    host: localhost
