@@ -26,3 +26,5 @@ henry:
   elasticsearch:
     port: 9200
     host: localhost
+  prefix:
+    api: api

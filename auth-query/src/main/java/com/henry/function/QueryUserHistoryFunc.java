@@ -20,7 +20,7 @@ public class QueryUserHistoryFunc extends BaseFunc {
     private final UserHistoryRepository userHistoryRepository;
 
     public Page<HistoryResponse> exec(QueryHistoryRequest request) {
-        PermissionUtils.hasPermission(UserRole.ALL_ROLE);
+        PermissionUtils.hasRole(UserRole.ALL_ROLE);
 
         Pageable pageable = PageableUtils.convertToPageable(request.getPageNumber(), request.getPageSize(), request.getSorts());
         Page<HistoryEntity> pageHistories = userHistoryRepository.findAllByEntityId(request.getEntityId(), pageable);

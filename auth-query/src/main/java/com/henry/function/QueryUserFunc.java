@@ -29,7 +29,7 @@ public class QueryUserFunc extends BaseFunc {
     private final ElasticsearchRepositoryUtil elasticsearchRepositoryUtil;
 
     public Page<UserResponse> exec(QueryUserRequest request) {
-        PermissionUtils.hasPermission(UserRole.ADMIN);
+        PermissionUtils.hasRole(UserRole.ADMIN);
         Pageable pageable = PageableUtils.convertToPageable(request.getPageNumber(), request.getPageSize());
         NativeQueryBuilder queryBuilder = ElasticsearchUtils.getQueryBuildersSort(new NativeQueryBuilder(), request.getSorts());
         queryBuilder.withPageable(pageable);

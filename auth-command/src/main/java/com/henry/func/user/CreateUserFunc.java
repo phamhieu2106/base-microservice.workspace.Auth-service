@@ -15,6 +15,7 @@ import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
 import com.henry.request.CreateUserRequest;
 import com.henry.util.MappingUtils;
+import com.henry.util.PermissionUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,8 @@ public class CreateUserFunc extends BaseFunc {
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(CreateUserRequest request, String currentUsername) {
+        PermissionUtils.hasRole(UserRole.ADMIN);
+
         Date now = new Date();
         validateRequest(request);
 

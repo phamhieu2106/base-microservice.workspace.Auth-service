@@ -8,12 +8,14 @@ import com.henry.base.func.BaseFunc;
 import com.henry.command.BlockUserCommand;
 import com.henry.command.IUserCommand;
 import com.henry.constant.AuthErrorCode;
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
 import com.henry.entity.UserHistoryEntity;
 import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
 import com.henry.request.BlockUserRequest;
 import com.henry.util.NotificationUtils;
+import com.henry.util.PermissionUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -31,6 +33,8 @@ public class BlockUserFunc extends BaseFunc {
     private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(String id, BlockUserRequest request, String currentUsername) {
+        PermissionUtils.hasRole(UserRole.ADMIN);
+
         Date now = new Date();
 
         UserAggregate userAggregate = userRepository.findById(id).orElseThrow(()
@@ -40,7 +44,7 @@ public class BlockUserFunc extends BaseFunc {
         command.setStatus(UserStatus.BLOCKED);
         command.setUpdatedDate(now);
         command.setLastModifiedBy(currentUsername);
-        
+
         userAggregateRepository.update(userAggregate.getId(), command);
 
         historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class,

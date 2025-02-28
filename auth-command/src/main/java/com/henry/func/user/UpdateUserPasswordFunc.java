@@ -8,12 +8,14 @@ import com.henry.base.func.BaseFunc;
 import com.henry.command.IUserCommand;
 import com.henry.command.UpdateUserPasswordCommand;
 import com.henry.constant.AuthErrorCode;
+import com.henry.constant.UserRole;
 import com.henry.constant.UserStatus;
 import com.henry.entity.UserHistoryEntity;
 import com.henry.repository.UserHistoryRepository;
 import com.henry.repository.UserRepository;
 import com.henry.request.UpdateUserPasswordRequest;
 import com.henry.util.MappingUtils;
+import com.henry.util.PermissionUtils;
 import com.henry.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -31,8 +33,9 @@ public class UpdateUserPasswordFunc extends BaseFunc {
     private final PasswordEncoder passwordEncoder;
 
     public String exec(UpdateUserPasswordRequest request, String currentUsername) {
-        Date now = new Date();
+        PermissionUtils.hasRole(UserRole.ALL_ROLE);
 
+        Date now = new Date();
         UserAggregate userAggregate = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 
