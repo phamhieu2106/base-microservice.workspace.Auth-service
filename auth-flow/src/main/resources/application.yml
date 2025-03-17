@@ -32,3 +32,5 @@ henry:
   elasticsearch:
     port: 9200
     host: localhost
+  connector:
+    url: "http://localhost:8083/connectors"
