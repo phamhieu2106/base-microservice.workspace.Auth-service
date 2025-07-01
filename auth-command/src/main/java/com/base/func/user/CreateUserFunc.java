@@ -2,7 +2,6 @@ package com.base.func.user;
 
 import com.base.aggregate.UserAggregate;
 import com.base.aggregate.BaseAggregate;
-import com.base.base.constant.HistoryType;
 import com.base.exception.ServiceException;
 import com.base.func.BaseFunc;
 import com.base.command.CreateUserCommand;
@@ -10,8 +9,6 @@ import com.base.command.IUserCommand;
 import com.base.constant.AuthErrorCode;
 import com.base.constant.UserRole;
 import com.base.constant.UserStatus;
-import com.base.entity.UserHistoryEntity;
-import com.base.repository.UserHistoryRepository;
 import com.base.repository.UserRepository;
 import com.base.request.CreateUserRequest;
 import com.base.util.MappingUtils;
@@ -30,7 +27,6 @@ public class CreateUserFunc extends BaseFunc {
 
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
     private final UserRepository userRepository;
-    private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
 
     public String exec(CreateUserRequest request, String currentUsername) {
         PermissionUtils.hasRole(UserRole.ADMIN);
@@ -44,7 +40,6 @@ public class CreateUserFunc extends BaseFunc {
         command.setCreatedBy(currentUsername);
         command.setCreatedDate(now);
         UserAggregate userAggregate = userAggregateRepository.save(command);
-        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.CREATE, null, now);
         return userAggregate.getId();
     }
 

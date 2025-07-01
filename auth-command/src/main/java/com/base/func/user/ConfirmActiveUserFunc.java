@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ConfirmActiveUserFunc extends BaseFunc {
     private final UserRepository userRepository;
-    private final NotificationUtils notificationUtils;
 
     public String exec(String id, String currentUsername) {
         PermissionUtils.hasRole(UserRole.ALL_ROLE);

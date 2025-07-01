@@ -2,7 +2,6 @@ package com.base.func.user;
 
 import com.base.aggregate.UserAggregate;
 import com.base.aggregate.BaseAggregate;
-import com.base.base.constant.HistoryType;
 import com.base.exception.ServiceException;
 import com.base.func.BaseFunc;
 import com.base.command.IUserCommand;
@@ -10,8 +9,6 @@ import com.base.command.UpdateUserPasswordCommand;
 import com.base.constant.AuthErrorCode;
 import com.base.constant.UserRole;
 import com.base.constant.UserStatus;
-import com.base.entity.UserHistoryEntity;
-import com.base.repository.UserHistoryRepository;
 import com.base.repository.UserRepository;
 import com.base.request.UpdateUserPasswordRequest;
 import com.base.util.MappingUtils;
@@ -28,7 +25,6 @@ import java.util.Date;
 public class UpdateUserPasswordFunc extends BaseFunc {
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
     private final UserRepository userRepository;
-    private final HistoryUtils<UserHistoryEntity, UserHistoryRepository> historyUtils;
     private final PasswordEncoder passwordEncoder;
 
     public String exec(UpdateUserPasswordRequest request, String currentUsername) {
@@ -51,7 +47,6 @@ public class UpdateUserPasswordFunc extends BaseFunc {
         command.setLastModifiedBy(currentUsername);
 
         userAggregateRepository.update(userAggregate.getId(), command);
-        historyUtils.saveHistory(userAggregate.getId(), userAggregate.getUsername(), UserAggregate.class, HistoryType.UPDATE_PASSWORD, null, now);
         return userAggregate.getId();
     }
 }
