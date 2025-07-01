@@ -16,7 +16,6 @@ repositories {
 dependencies {
     implementation project(path: ':workspace:1-shared:shared-base', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-auth', configuration: 'default')
-    implementation project(path: ':workspace:1-shared:shared-eventsourcingbase', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-eventsourcing', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-database', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-rabbitmq', configuration: 'default')

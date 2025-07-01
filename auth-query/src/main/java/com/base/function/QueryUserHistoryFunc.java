@@ -1,8 +1,8 @@
 package com.base.function;
 
-import com.base.base.func.BaseFunc;
-import com.base.base.request.QueryHistoryRequest;
-import com.base.base.response.HistoryResponse;
+import com.base.func.BaseFunc;
+import com.base.request.QueryHistoryRequest;
+import com.base.response.HistoryResponse;
 import com.base.constant.UserRole;
 import com.base.domain.entity.HistoryEntity;
 import com.base.repository.UserHistoryRepository;

@@ -1,6 +1,6 @@
 package com.base.api;
 
-import com.base.base.domain.response.WrapResponse;
+import com.base.domain.response.WrapResponse;
 import com.base.request.CreateUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;

@@ -1,6 +1,6 @@
 package com.base.util;
 
-import com.base.base.service.BaseService;
+import com.base.service.BaseService;
 import com.base.constant.NotificationAuthMessage;
 import com.base.request.api.InternalNotificationAPI;
 import com.base.request.constant.NotificationType;

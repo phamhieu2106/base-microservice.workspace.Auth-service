@@ -1,6 +1,6 @@
 package com.base.request;
 
-import com.base.base.domain.request.BasePageSortRequest;
+import com.base.domain.request.BasePageSortRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

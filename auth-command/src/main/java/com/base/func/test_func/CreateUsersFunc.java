@@ -1,9 +1,9 @@
 package com.base.func.test_func;
 
 import com.base.aggregate.UserAggregate;
-import com.base.base.aggregate.BaseAggregate;
+import com.base.aggregate.BaseAggregate;
 import com.base.base.constant.HistoryType;
-import com.base.base.func.BaseFunc;
+import com.base.func.BaseFunc;
 import com.base.command.CreateUserCommand;
 import com.base.command.IUserCommand;
 import com.base.constant.UserStatus;
@@ -12,7 +12,6 @@ import com.base.repository.UserHistoryRepository;
 import com.base.repository.UserRepository;
 import com.base.request.CreateUserRequest;
 import com.base.util.MappingUtils;
-import com.base.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;

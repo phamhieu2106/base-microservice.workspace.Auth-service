@@ -1,8 +1,7 @@
 package com.base.aggregate;
 
-import com.base.base.Event;
-import com.base.base.aggregate.DomainAggregate;
-import com.base.base.util.EventUtils;
+import com.base.common.Event;
+import com.base.util.EventUtils;
 import com.base.command.*;
 import com.base.constant.JDBCCustomType;
 import com.base.event.BlockUserEvent;

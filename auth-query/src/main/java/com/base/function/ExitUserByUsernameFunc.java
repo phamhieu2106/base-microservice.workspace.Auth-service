@@ -1,6 +1,6 @@
 package com.base.function;
 
-import com.base.base.func.BaseFunc;
+import com.base.func.BaseFunc;
 import com.base.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

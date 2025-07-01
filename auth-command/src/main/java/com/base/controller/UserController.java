@@ -1,7 +1,6 @@
 package com.base.controller;
 
-import com.base.base.controller.BaseController;
-import com.base.base.domain.response.WrapResponse;
+import com.base.domain.response.WrapResponse;
 import com.base.func.test_func.CreateUsersFunc;
 import com.base.func.user.*;
 import com.base.request.BlockUserRequest;

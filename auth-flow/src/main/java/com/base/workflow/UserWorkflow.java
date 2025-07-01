@@ -1,6 +1,5 @@
 package com.base.workflow;
 
-import com.base.base.workflow.BaseWorkFlow;
 import com.base.constant.AuthActionType;
 import com.base.constant.WorkflowTopic;
 import com.base.event.*;

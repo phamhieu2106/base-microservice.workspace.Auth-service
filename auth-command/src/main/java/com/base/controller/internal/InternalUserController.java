@@ -1,7 +1,7 @@
 package com.base.controller.internal;
 
-import com.base.base.controller.BaseController;
-import com.base.base.domain.response.WrapResponse;
+import com.base.controller.BaseController;
+import com.base.domain.response.WrapResponse;
 import com.base.func.user.CreateUserFunc;
 import com.base.request.CreateUserRequest;
 import jakarta.validation.Valid;

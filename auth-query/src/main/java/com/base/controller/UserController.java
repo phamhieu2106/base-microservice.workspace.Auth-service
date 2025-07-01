@@ -1,9 +1,8 @@
 package com.base.controller;
 
-import com.base.base.controller.BaseController;
-import com.base.base.domain.response.WrapResponse;
-import com.base.base.request.QueryHistoryRequest;
-import com.base.base.response.HistoryResponse;
+import com.base.domain.response.WrapResponse;
+import com.base.request.QueryHistoryRequest;
+import com.base.response.HistoryResponse;
 import com.base.function.FindUserByIdFunc;
 import com.base.function.QueryUserFunc;
 import com.base.function.QueryUserHistoryFunc;

@@ -1,13 +1,12 @@
 package com.base.config;
 
 import com.base.aggregate.UserAggregate;
-import com.base.base.aggregate.BaseAggregate;
-import com.base.base.repository.EventRepository;
+import com.base.aggregate.BaseAggregate;
+import com.base.repository.EventRepository;
 import com.base.command.IUserCommand;
 import com.base.entity.UserHistoryEntity;
 import com.base.repository.UserHistoryRepository;
 import com.base.repository.UserRepository;
-import com.base.utils.HistoryUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

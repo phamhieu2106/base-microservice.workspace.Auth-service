@@ -1,7 +1,7 @@
 package com.base.controller.internal;
 
-import com.base.base.controller.BaseController;
-import com.base.base.domain.response.WrapResponse;
+import com.base.controller.BaseController;
+import com.base.domain.response.WrapResponse;
 import com.base.function.ExitUserByUsernameFunc;
 import com.base.function.FindUserDetailsByUsernameFunc;
 import com.base.response.UserDetailResponse;

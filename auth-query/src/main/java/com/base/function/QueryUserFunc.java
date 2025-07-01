@@ -1,7 +1,7 @@
 package com.base.function;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.base.base.func.BaseFunc;
+import com.base.func.BaseFunc;
 import com.base.constant.UserRole;
 import com.base.request.QueryUserRequest;
 import com.base.response.UserResponse;

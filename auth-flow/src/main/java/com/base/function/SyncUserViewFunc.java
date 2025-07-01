@@ -1,7 +1,7 @@
 package com.base.function;
 
 import com.base.aggregate.UserAggregate;
-import com.base.base.func.BaseFunc;
+import com.base.func.BaseFunc;
 import com.base.constant.AuthActionType;
 import com.base.repository.UserRepository;
 import com.base.repository.UserViewRepository;

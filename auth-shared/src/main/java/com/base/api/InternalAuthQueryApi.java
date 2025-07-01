@@ -1,6 +1,6 @@
 package com.base.api;
 
-import com.base.base.domain.response.WrapResponse;
+import com.base.domain.response.WrapResponse;
 import com.base.response.UserDetailResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;

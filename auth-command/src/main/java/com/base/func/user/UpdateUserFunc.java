@@ -1,10 +1,10 @@
 package com.base.func.user;
 
 import com.base.aggregate.UserAggregate;
-import com.base.base.aggregate.BaseAggregate;
+import com.base.aggregate.BaseAggregate;
 import com.base.base.constant.HistoryType;
-import com.base.base.exception.ServiceException;
-import com.base.base.func.BaseFunc;
+import com.base.exception.ServiceException;
+import com.base.func.BaseFunc;
 import com.base.command.IUserCommand;
 import com.base.command.UpdateUserCommand;
 import com.base.constant.AuthErrorCode;
@@ -15,7 +15,6 @@ import com.base.repository.UserRepository;
 import com.base.request.UpdateUserRequest;
 import com.base.util.MappingUtils;
 import com.base.util.PermissionUtils;
-import com.base.utils.HistoryUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
