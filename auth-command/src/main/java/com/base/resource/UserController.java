@@ -1,4 +1,4 @@
-package com.base.controller;
+package com.base.resource;
 
 import com.base.domain.response.WrapResponse;
 import com.base.func.test_func.CreateUsersFunc;
@@ -23,7 +23,7 @@ public class UserController extends BaseController {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, principal.getName())), executorService);
     }
-    
+
     @PostMapping("/create-users")
     public CompletableFuture<WrapResponse<String>> createUsers(@Valid @RequestBody List<CreateUserRequest> request,
                                                                Principal principal) {

@@ -1,9 +1,9 @@
-package com.base.controller.internal;
+package com.base.resource.internal;
 
-import com.base.controller.BaseController;
 import com.base.domain.response.WrapResponse;
 import com.base.func.user.CreateUserFunc;
 import com.base.request.CreateUserRequest;
+import com.base.resource.BaseController;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 

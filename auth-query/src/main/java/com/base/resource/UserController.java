@@ -1,12 +1,12 @@
-package com.base.controller;
+package com.base.resource;
 
 import com.base.domain.response.WrapResponse;
-import com.base.request.QueryHistoryRequest;
-import com.base.response.HistoryResponse;
 import com.base.function.FindUserByIdFunc;
 import com.base.function.QueryUserFunc;
 import com.base.function.QueryUserHistoryFunc;
+import com.base.request.QueryHistoryRequest;
 import com.base.request.QueryUserRequest;
+import com.base.response.HistoryResponse;
 import com.base.response.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;

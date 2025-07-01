@@ -1,9 +1,9 @@
-package com.base.controller.internal;
+package com.base.resource.internal;
 
-import com.base.controller.BaseController;
 import com.base.domain.response.WrapResponse;
 import com.base.function.ExitUserByUsernameFunc;
 import com.base.function.FindUserDetailsByUsernameFunc;
+import com.base.resource.BaseController;
 import com.base.response.UserDetailResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
