@@ -12,26 +12,21 @@ spring:
     open-in-view: off
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/henry-event?currentSchema=auth_event
-    username: henry
+    url: jdbc:postgresql://localhost:5432/base-event?currentSchema=auth_event
+    username: base
     password: 123456
   messages:
     encoding: UTF-8
     basename: vi
+  elasticsearch:
+    uris: http://localhost:9200
+  data:
+    redis:
+      host: localhost
+      port: 6379
 server:
   port: 8001
 
-henry:
-  auth-command:
-    api: localhost:8001
-  auth-query:
-    api: localhost:8003
-  prefix:
-    api: api
+base:
   environment:
     debug: true
-  elasticsearch:
-    port: 9200
-    host: localhost
-  jwt:
-    secret-key: 60ce8ae1790dfc0fccf946d2c7ba27d4cac35c1b360ae585b7e90dd958f6c859b614fc233290a4d7912bc5deddefc57851f7eaa6c179e1bc23351a7bde7603e2

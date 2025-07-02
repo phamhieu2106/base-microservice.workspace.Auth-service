@@ -8,10 +8,10 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/internal/${henry.prefix.api}/${spring.application.name}/users")
+@RequestMapping("/internal")
 public class InternalUserController extends BaseController {
 
-    @PostMapping("/create")
+    @PostMapping("/users/create")
     public WrapResponse<String> create(@Valid @RequestBody CreateUserRequest request, @RequestParam String currentUsername) {
         return WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, currentUsername));
     }
