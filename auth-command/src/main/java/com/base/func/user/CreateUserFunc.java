@@ -41,10 +41,10 @@ public class CreateUserFunc extends BaseFunc {
             throw new ServiceException(AuthErrorCode.PASSWORD_NOT_MATCH);
         }
 
-        return execWithTransaction(() -> runInternal(request));
+        return execWithTransaction(() -> runInternal(request, confirmToken));
     }
 
-    private String runInternal(CreateUserRequest request) {
+    private String runInternal(CreateUserRequest request, String confirmToken) {
         Date currentDate = new Date();
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
@@ -55,7 +55,7 @@ public class CreateUserFunc extends BaseFunc {
 
         UserAggregate userAggregate = userAggregateRepository.save(command);
 
-        cacheUsername(userAggregate.getUsername());
+        handleCacheUser(userAggregate.getUsername(), confirmToken);
 
         return userAggregate.getId();
     }
@@ -64,7 +64,8 @@ public class CreateUserFunc extends BaseFunc {
         return passwordEncoder.encode(password);
     }
 
-    private void cacheUsername(String username) {
+    private void handleCacheUser(String username, String confirmToken) {
         cacheUtils.addToSet(CommonConstant.AuthCacheKey.ACTIVE_USERNAME, username);
+        cacheUtils.removeKey(confirmToken);
     }
 }
