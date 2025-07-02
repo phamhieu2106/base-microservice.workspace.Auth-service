@@ -1,6 +1,5 @@
 package com.base.config;
 
-import com.base.filter.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -17,7 +15,6 @@ public class ResourceConfig {
     @Value("${base.environment.debug:false}")
     private boolean IS_DEVELOP;
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,8 +26,7 @@ public class ResourceConfig {
             http
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers("/internal/**").permitAll()
-                            .anyRequest().authenticated())
-                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                            .anyRequest().authenticated());
         }
         return http.build();
     }
