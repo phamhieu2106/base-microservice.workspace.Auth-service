@@ -22,6 +22,7 @@ dependencies {
     implementation project(path: ':workspace:1-shared:shared-elasticsearch', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-mvc', configuration: 'default')
     implementation project(path: ':workspace:1-shared:shared-notification', configuration: 'default')
+    implementation project(path: ':workspace:1-shared:shared-proto', configuration: 'default')
 }
 
 test {

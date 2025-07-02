@@ -15,6 +15,7 @@ public class CreateUserCommand implements IUserCommand {
     private String phoneNumber;
     private String email;
     private String fullName;
+    private String password;
     private Date dateOfBirth;
     private Integer status;
     private List<String> authorities;

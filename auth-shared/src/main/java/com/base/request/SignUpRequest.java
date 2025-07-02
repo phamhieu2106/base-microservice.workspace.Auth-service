@@ -1,11 +1,9 @@
 package com.base.request;
 
 import com.base.constant.AuthErrorCode;
+import com.base.domain.request.BaseRequest;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -13,13 +11,14 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserRequest {
+@Builder
+public class SignUpRequest extends BaseRequest {
     @NotBlank(message = AuthErrorCode.USER_USERNAME_EMPTY)
     private String username;
-    private String phoneNumber;
     private String email;
+    private String phoneNumber;
     private String fullName;
     private Date dateOfBirth;
-    private String password;
-    private String confirmPassword;
+
+    private String tokenConfirm;
 }

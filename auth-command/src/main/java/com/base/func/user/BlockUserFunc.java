@@ -1,18 +1,16 @@
 package com.base.func.user;
 
-import com.base.aggregate.UserAggregate;
 import com.base.aggregate.BaseAggregate;
-import com.base.exception.ServiceException;
-import com.base.func.BaseFunc;
+import com.base.aggregate.UserAggregate;
 import com.base.command.BlockUserCommand;
 import com.base.command.IUserCommand;
 import com.base.constant.AuthErrorCode;
-import com.base.constant.UserRole;
 import com.base.constant.UserStatus;
+import com.base.exception.ServiceException;
+import com.base.func.BaseFunc;
 import com.base.repository.UserRepository;
 import com.base.request.BlockUserRequest;
 import com.base.util.NotificationUtils;
-import com.base.util.PermissionUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +26,6 @@ public class BlockUserFunc extends BaseFunc {
     private final NotificationUtils notificationUtils;
 
     public String exec(String id, BlockUserRequest request, String currentUsername) {
-        PermissionUtils.hasRole(UserRole.ADMIN);
 
         Date now = new Date();
 

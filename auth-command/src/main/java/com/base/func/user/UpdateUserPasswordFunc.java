@@ -1,18 +1,16 @@
 package com.base.func.user;
 
-import com.base.aggregate.UserAggregate;
 import com.base.aggregate.BaseAggregate;
-import com.base.exception.ServiceException;
-import com.base.func.BaseFunc;
+import com.base.aggregate.UserAggregate;
 import com.base.command.IUserCommand;
 import com.base.command.UpdateUserPasswordCommand;
 import com.base.constant.AuthErrorCode;
-import com.base.constant.UserRole;
 import com.base.constant.UserStatus;
+import com.base.exception.ServiceException;
+import com.base.func.BaseFunc;
 import com.base.repository.UserRepository;
 import com.base.request.UpdateUserPasswordRequest;
 import com.base.util.MappingUtils;
-import com.base.util.PermissionUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,8 +26,6 @@ public class UpdateUserPasswordFunc extends BaseFunc {
     private final PasswordEncoder passwordEncoder;
 
     public String exec(UpdateUserPasswordRequest request, String currentUsername) {
-        PermissionUtils.hasRole(UserRole.ALL_ROLE);
-
         Date now = new Date();
         UserAggregate userAggregate = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));

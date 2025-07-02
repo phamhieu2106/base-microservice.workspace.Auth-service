@@ -1,10 +1,11 @@
 package com.base.constant;
 
 public class AuthErrorCode {
-    //PERMISSION
-    public static final String INVALID_TOKEN = "AUTH.INVALID_TOKEN";
+    //SYSTEM
+    public static final String CACHE_USER_FAIL = "AUTH.CACHE_USER_FAIL";
+    public static final String CACHE_USER_EXPIRE = "AUTH.CACHE_USER_EXPIRE";
 
-    public static final String DONT_HAVE_PERMISSION = "AUTH.DONT_HAVE_PERMISSION";
+    public static final String INVALID_TOKEN = "AUTH.INVALID_TOKEN";
 
     //AUTH
     public static final String USERNAME_EXIT = "AUTH.USERNAME_EXIT";

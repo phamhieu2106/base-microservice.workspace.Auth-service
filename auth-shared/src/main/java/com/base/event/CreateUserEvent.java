@@ -19,6 +19,7 @@ public class CreateUserEvent extends BaseUserEvent {
     private String email;
     private String fullName;
     private Date dateOfBirth;
+    private String password;
     private Integer status;
     private List<String> authorities;
     private String actionUser;

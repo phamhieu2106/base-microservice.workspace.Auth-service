@@ -1,19 +1,22 @@
 package com.base.func.user;
 
-import com.base.aggregate.UserAggregate;
+import com.base.CacheUtils;
 import com.base.aggregate.BaseAggregate;
-import com.base.exception.ServiceException;
-import com.base.func.BaseFunc;
+import com.base.aggregate.UserAggregate;
 import com.base.command.CreateUserCommand;
 import com.base.command.IUserCommand;
+import com.base.common.CommonConstant;
 import com.base.constant.AuthErrorCode;
 import com.base.constant.UserRole;
 import com.base.constant.UserStatus;
+import com.base.exception.ServiceException;
+import com.base.func.BaseFunc;
 import com.base.repository.UserRepository;
 import com.base.request.CreateUserRequest;
 import com.base.util.MappingUtils;
-import com.base.util.PermissionUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,26 +29,42 @@ import java.util.List;
 public class CreateUserFunc extends BaseFunc {
 
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
-    private final UserRepository userRepository;
+    private final CacheUtils cacheUtils;
+    private final PasswordEncoder passwordEncoder;
 
-    public String exec(CreateUserRequest request, String currentUsername) {
-        PermissionUtils.hasRole(UserRole.ADMIN);
+    public String exec(CreateUserRequest request, String confirmToken) {
+        if (!cacheUtils.exists(confirmToken)) {
+            throw new ServiceException(AuthErrorCode.CACHE_USER_EXPIRE);
+        }
 
-        Date now = new Date();
-        validateRequest(request);
+        if (ObjectUtils.notEqual(request.getPassword(), request.getConfirmPassword())) {
+            throw new ServiceException(AuthErrorCode.PASSWORD_NOT_MATCH);
+        }
+
+        return execWithTransaction(() -> runInternal(request));
+    }
+
+    private String runInternal(CreateUserRequest request) {
+        Date currentDate = new Date();
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
-        command.setStatus(UserStatus.INACTIVE);
+        command.setStatus(UserStatus.ACTIVE);
         command.setAuthorities(List.of(UserRole.USER));
-        command.setCreatedBy(currentUsername);
-        command.setCreatedDate(now);
+        command.setCreatedDate(currentDate);
+        command.setPassword(getPasswordEncode(request.getPassword()));
+
         UserAggregate userAggregate = userAggregateRepository.save(command);
+
+        cacheUsername(userAggregate.getUsername());
+
         return userAggregate.getId();
     }
 
-    private void validateRequest(CreateUserRequest request) {
-        if (userRepository.existsByUsername(request.getUsername().trim())) {
-            throw new ServiceException(AuthErrorCode.USERNAME_EXIT);
-        }
+    private String getPasswordEncode(String password) {
+        return passwordEncoder.encode(password);
+    }
+
+    private void cacheUsername(String username) {
+        cacheUtils.addToSet(CommonConstant.AuthCacheKey.ACTIVE_USERNAME, username);
     }
 }

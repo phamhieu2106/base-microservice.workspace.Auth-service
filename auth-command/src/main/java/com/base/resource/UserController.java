@@ -1,35 +1,30 @@
 package com.base.resource;
 
 import com.base.domain.response.WrapResponse;
-import com.base.func.test_func.CreateUsersFunc;
 import com.base.func.user.*;
-import com.base.request.BlockUserRequest;
-import com.base.request.CreateUserRequest;
-import com.base.request.UpdateUserPasswordRequest;
-import com.base.request.UpdateUserRequest;
+import com.base.request.*;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/users")
 public class UserController extends BaseController {
 
-    @PostMapping("/create")
-    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, Principal principal) {
+    @PostMapping("/create/{confirmToken}")
+    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, @PathVariable String confirmToken) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, principal.getName())), executorService);
+                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, confirmToken)), executorService);
     }
 
-    @PostMapping("/create-users")
-    public CompletableFuture<WrapResponse<String>> createUsers(@Valid @RequestBody List<CreateUserRequest> request,
-                                                               Principal principal) {
+    @PostMapping("/confirm-active/{confirmToken}")
+    public CompletableFuture<WrapResponse<SignUpRequest>> confirm(@PathVariable String confirmToken) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(CreateUsersFunc.class).exec(request, principal.getName())), executorService);
+                -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(confirmToken)), executorService);
     }
+
 
     @PostMapping("/update/{id}")
     public CompletableFuture<WrapResponse<String>> update(@PathVariable String id, @Valid @RequestBody UpdateUserRequest request,
@@ -38,11 +33,6 @@ public class UserController extends BaseController {
                 -> WrapResponse.ok(applicationContext.getBean(UpdateUserFunc.class).exec(id, request, principal.getName())), executorService);
     }
 
-    @PostMapping("/confirm-active/{id}")
-    public CompletableFuture<WrapResponse<String>> confirm(@PathVariable String id, Principal principal) {
-        return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(id, principal.getName())), executorService);
-    }
 
     @PostMapping("/block/{id}")
     public CompletableFuture<WrapResponse<String>> block(@PathVariable String id, @Valid @RequestBody BlockUserRequest request,
