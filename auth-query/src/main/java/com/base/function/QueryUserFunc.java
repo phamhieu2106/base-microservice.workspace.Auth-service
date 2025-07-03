@@ -8,7 +8,6 @@ import com.base.response.UserResponse;
 import com.base.util.ElasticsearchRepositoryUtil;
 import com.base.util.ElasticsearchUtils;
 import com.base.util.PageableUtils;
-import com.base.util.PermissionUtils;
 import com.base.view.UserView;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,7 +28,6 @@ public class QueryUserFunc extends BaseFunc {
     private final ElasticsearchRepositoryUtil elasticsearchRepositoryUtil;
 
     public Page<UserResponse> exec(QueryUserRequest request) {
-        PermissionUtils.hasRole(UserRole.ADMIN);
         Pageable pageable = PageableUtils.convertToPageable(request.getPageNumber(), request.getPageSize());
         NativeQueryBuilder queryBuilder = ElasticsearchUtils.getQueryBuildersSort(new NativeQueryBuilder(), request.getSorts());
         queryBuilder.withPageable(pageable);

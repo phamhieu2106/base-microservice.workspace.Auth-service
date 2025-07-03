@@ -36,6 +36,7 @@ public class UserAggregate extends DomainAggregate<UserAggregate, IUserCommand> 
     private Date dateOfBirth;
     private String phoneNumber;
     private String email;
+    @Column(unique = true)
     private String username;
     private String password;
     private Integer status;
