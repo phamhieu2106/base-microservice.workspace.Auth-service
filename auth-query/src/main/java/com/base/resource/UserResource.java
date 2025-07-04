@@ -8,7 +8,6 @@ import com.base.request.QueryHistoryRequest;
 import com.base.request.QueryUserRequest;
 import com.base.response.HistoryResponse;
 import com.base.response.UserResponse;
-import com.base.service.InternalUserService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +34,5 @@ public class UserResource extends BaseResource {
     public CompletableFuture<WrapResponse<Page<HistoryResponse>>> searchHistories(@Valid @RequestBody QueryHistoryRequest request) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(QueryUserHistoryFunc.class).exec(request)), executorService);
-    }
-
-    @PostMapping("/test-grpc")
-    public CompletableFuture<WrapResponse<Object>> testGRPC(@Valid @RequestBody QueryHistoryRequest request) {
-        return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(InternalUserService.class).findByUsername("phamvanhieu")), executorService);
     }
 }
