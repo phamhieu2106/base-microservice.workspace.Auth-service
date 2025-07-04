@@ -33,7 +33,7 @@ public class CreateUserFunc extends BaseFunc {
     private final PasswordEncoder passwordEncoder;
 
     public String exec(CreateUserRequest request, String confirmToken) {
-        if (!cacheUtils.exists(confirmToken)) {
+        if (!cacheUtils.exists(confirmToken) || cacheUtils.isSetMember(CommonConstant.AuthCacheKey.ACTIVE_USERNAME, request.getUsername())) {
             throw new ServiceException(AuthErrorCode.CACHE_USER_EXPIRE);
         }
 

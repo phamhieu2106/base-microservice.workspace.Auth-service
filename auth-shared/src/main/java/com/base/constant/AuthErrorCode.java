@@ -2,7 +2,7 @@ package com.base.constant;
 
 public class AuthErrorCode {
     //SYSTEM
-    public static final String CACHE_USER_FAIL = "AUTH.CACHE_USER_FAIL";
+    public static final String CACHE_TOKEN_USER_CONFIRM_FAIL = "AUTH.CACHE_TOKEN_USER_CONFIRM_FAIL";
     public static final String CACHE_USER_EXPIRE = "AUTH.CACHE_USER_EXPIRE";
 
     public static final String INVALID_TOKEN = "AUTH.INVALID_TOKEN";

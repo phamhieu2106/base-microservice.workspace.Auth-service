@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package com.base.grpc;
+
+service InternalUserService{
+  rpc findUserByUsername(FindByUsernameRequest) returns (UserView);
+}
+
+message FindByUsernameRequest{
+  string username = 1;
+}
+
+message UserView{
+  string username = 1;
+}

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
 @RestController
-@RequestMapping("${henry.prefix.api}/${spring.application.name}/users")
-public class UserResource extends BaseController {
+@RequestMapping("/users")
+public class UserResource extends BaseResource {
 
     @GetMapping("/find-by-id/{id}")
     public CompletableFuture<WrapResponse<UserResponse>> findById(@PathVariable String id) {

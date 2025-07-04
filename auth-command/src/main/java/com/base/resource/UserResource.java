@@ -1,8 +1,14 @@
 package com.base.resource;
 
 import com.base.domain.response.WrapResponse;
-import com.base.func.user.*;
-import com.base.request.*;
+import com.base.func.user.BlockUserFunc;
+import com.base.func.user.CreateUserFunc;
+import com.base.func.user.UpdateUserFunc;
+import com.base.func.user.UpdateUserPasswordFunc;
+import com.base.request.BlockUserRequest;
+import com.base.request.CreateUserRequest;
+import com.base.request.UpdateUserPasswordRequest;
+import com.base.request.UpdateUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,18 +17,12 @@ import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/users")
-public class UserController extends BaseController {
+public class UserResource extends BaseResource {
 
     @PostMapping("/create/{confirmToken}")
     public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, @PathVariable String confirmToken) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, confirmToken)), executorService);
-    }
-
-    @PostMapping("/confirm-active/{confirmToken}")
-    public CompletableFuture<WrapResponse<SignUpRequest>> confirm(@PathVariable String confirmToken) {
-        return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(ConfirmActiveUserFunc.class).exec(confirmToken)), executorService);
     }
 
 
