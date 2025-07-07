@@ -26,9 +26,15 @@ public class UpdateUserPasswordFunc extends BaseFunc {
     private final PasswordEncoder passwordEncoder;
 
     public String exec(UpdateUserPasswordRequest request, String currentUsername) {
-        Date now = new Date();
         UserAggregate userAggregate = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
+
+        return execInLockWithTransaction(UserAggregate.class + userAggregate.getId(),
+                () -> runInternal(userAggregate, request, currentUsername));
+    }
+
+    public String runInternal(UserAggregate userAggregate, UpdateUserPasswordRequest request, String currentUsername) {
+        Date now = new Date();
 
         if (ObjectUtils.notEqual(request.getPassword(), request.getConfirmPassword())) {
             throw new ServiceException(AuthErrorCode.PASSWORD_NOT_MATCH);

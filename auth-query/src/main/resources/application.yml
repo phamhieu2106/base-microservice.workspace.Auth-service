@@ -10,6 +10,7 @@ spring:
       hibernate:
         default_schema: auth_event
     open-in-view: off
+    show-sql: true
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/base-event?currentSchema=auth_event

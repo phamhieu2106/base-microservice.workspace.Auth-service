@@ -20,5 +20,5 @@ public class SignUpRequest extends BaseRequest {
     private String fullName;
     private Date dateOfBirth;
 
-    private String tokenConfirm;
+    private String token;
 }
