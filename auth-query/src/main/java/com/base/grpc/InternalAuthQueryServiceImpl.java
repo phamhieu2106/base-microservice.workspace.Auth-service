@@ -13,7 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @GrpcService
 @RequiredArgsConstructor
-public class InternalAuthServiceImpl extends InternalUserServiceGrpc.InternalUserServiceImplBase {
+public class InternalAuthQueryServiceImpl extends InternalUserServiceGrpc.InternalUserServiceImplBase {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

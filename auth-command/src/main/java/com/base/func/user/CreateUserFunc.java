@@ -15,8 +15,6 @@ import com.base.repository.UserRepository;
 import com.base.request.CreateUserRequest;
 import com.base.util.MappingUtils;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,38 +28,28 @@ public class CreateUserFunc extends BaseFunc {
 
     private final BaseAggregate<UserAggregate, IUserCommand, UserRepository> userAggregateRepository;
     private final CacheUtils cacheUtils;
-    private final PasswordEncoder passwordEncoder;
 
-    public String exec(CreateUserRequest request, String confirmToken) {
-        if (!cacheUtils.exists(confirmToken) || cacheUtils.isSetMember(CommonConstant.AuthCacheKey.ACTIVE_USERNAME, request.getUsername())) {
+    public String exec(CreateUserRequest request) {
+        if (cacheUtils.isSetMember(CommonConstant.AuthCacheKey.ACTIVE_USERNAME, request.getUsername())) {
             throw new ServiceException(AuthErrorCode.CACHE_USER_EXPIRE);
         }
 
-        if (ObjectUtils.notEqual(request.getPassword(), request.getConfirmPassword())) {
-            throw new ServiceException(AuthErrorCode.PASSWORD_NOT_MATCH);
-        }
-
-        return execWithTransaction(() -> runInternal(request, confirmToken));
+        return execWithTransaction(() -> runInternal(request));
     }
 
-    private String runInternal(CreateUserRequest request, String confirmToken) {
+    public String runInternal(CreateUserRequest request) {
         Date currentDate = new Date();
 
         CreateUserCommand command = MappingUtils.mapObject(request, CreateUserCommand.class);
-        command.setStatus(UserStatus.ACTIVE);
+        command.setStatus(UserStatus.INACTIVE);
         command.setAuthorities(List.of(UserRole.USER));
         command.setCreatedDate(currentDate);
-        command.setPassword(getPasswordEncode(request.getPassword()));
 
         UserAggregate userAggregate = userAggregateRepository.save(command);
 
-        handleCacheUser(userAggregate.getUsername(), confirmToken);
+        handleCacheUser(userAggregate.getUsername(), request.getToken());
 
         return userAggregate.getId();
-    }
-
-    private String getPasswordEncode(String password) {
-        return passwordEncoder.encode(password);
     }
 
     private void handleCacheUser(String username, String confirmToken) {

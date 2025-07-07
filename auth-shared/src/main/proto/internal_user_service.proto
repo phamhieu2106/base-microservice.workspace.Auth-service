@@ -1,14 +1,28 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package com.base.grpc;
 
 service InternalUserService{
+  //action
+  rpc createUser(CreateUserRequest) returns (UserView);
+  //query
   rpc findUserByUsernameAndPassword (FindUserByUsernameAndPasswordRequest) returns (UserView);
   rpc findUserByUsername (FindByUsernameRequest) returns (UserView);
 }
 
 
 //REQUEST
+message CreateUserRequest{
+  string username = 1;
+  string email = 2;
+  string phoneNumber = 3;
+  string fullName = 4;
+  google.protobuf.Timestamp dateOfBirth = 5;
+  string token = 6;
+
+}
 message FindUserByUsernameAndPasswordRequest{
   string username = 1;
   string password = 2;
@@ -21,10 +35,10 @@ message FindByUsernameRequest{
 
 
 
-
 //RESPONSE
 message UserView{
-  string username = 1;
-  int32 status = 2;
+  string id = 1;
+  string username = 2;
+  int32 status = 3;
 }
 

@@ -22,4 +22,5 @@ public class CreateUserRequest {
     private Date dateOfBirth;
     private String password;
     private String confirmPassword;
+    private String token;
 }

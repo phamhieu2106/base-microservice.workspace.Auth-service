@@ -28,7 +28,7 @@ server:
   port: 8001
 grpc:
   server:
-    port: 9091
+    port: 8011
 base:
   environment:
     debug: true

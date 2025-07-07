@@ -19,29 +19,27 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping("/users")
 public class UserResource extends BaseResource {
 
-    @PostMapping("/create/{confirmToken}")
-    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request, @PathVariable String confirmToken) {
+    @PostMapping("/create")
+    public CompletableFuture<WrapResponse<String>> create(@Valid @RequestBody CreateUserRequest request) {
         return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request, confirmToken)), executorService);
+                -> WrapResponse.ok(applicationContext.getBean(CreateUserFunc.class).exec(request)), executorService);
     }
 
-
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     public CompletableFuture<WrapResponse<String>> update(@PathVariable String id, @Valid @RequestBody UpdateUserRequest request,
                                                           Principal principal) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(UpdateUserFunc.class).exec(id, request, principal.getName())), executorService);
     }
 
-
-    @PostMapping("/block/{id}")
+    @PutMapping("/block/{id}")
     public CompletableFuture<WrapResponse<String>> block(@PathVariable String id, @Valid @RequestBody BlockUserRequest request,
                                                          Principal principal) {
         return CompletableFuture.supplyAsync(()
                 -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id, request, principal.getName())), executorService);
     }
 
-    @PostMapping("/update-user-password")
+    @PutMapping("/update-user-password")
     public CompletableFuture<WrapResponse<String>> updateUserPassword(@Valid @RequestBody UpdateUserPasswordRequest request,
                                                                       Principal principal) {
         return CompletableFuture.supplyAsync(()
