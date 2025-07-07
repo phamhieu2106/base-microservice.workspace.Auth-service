@@ -13,7 +13,6 @@ import java.util.List;
 @Setter
 public class UserDetailResponse {
     private String username;
-    private String password;
     private Integer status;
     private List<String> authorities;
 }

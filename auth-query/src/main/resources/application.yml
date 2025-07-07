@@ -26,10 +26,8 @@ spring:
 server:
   port: 8003
 grpc:
-  client:
-    auth-query:
-      address: 'static://localhost:9090'
-      negotiationType: plaintext
+  server:
+    port: 8013
 base:
   environment:
     debug: true

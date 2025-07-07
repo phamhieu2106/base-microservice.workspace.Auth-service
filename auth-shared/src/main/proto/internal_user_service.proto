@@ -3,13 +3,28 @@ syntax = "proto3";
 package com.base.grpc;
 
 service InternalUserService{
-  rpc findUserByUsername(FindByUsernameRequest) returns (UserView);
+  rpc findUserByUsernameAndPassword (FindUserByUsernameAndPasswordRequest) returns (UserView);
+  rpc findUserByUsername (FindByUsernameRequest) returns (UserView);
+}
+
+
+//REQUEST
+message FindUserByUsernameAndPasswordRequest{
+  string username = 1;
+  string password = 2;
 }
 
 message FindByUsernameRequest{
   string username = 1;
 }
 
+
+
+
+
+//RESPONSE
 message UserView{
   string username = 1;
+  int32 status = 2;
 }
+
