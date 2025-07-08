@@ -4,10 +4,8 @@ import com.base.domain.response.WrapResponse;
 import com.base.func.user.BlockUserFunc;
 import com.base.func.user.CreateUserFunc;
 import com.base.func.user.UpdateUserFunc;
-import com.base.func.user.UpdateUserPasswordFunc;
 import com.base.request.BlockUserRequest;
 import com.base.request.CreateUserRequest;
-import com.base.request.UpdateUserPasswordRequest;
 import com.base.request.UpdateUserRequest;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +37,10 @@ public class UserResource extends BaseResource {
                 -> WrapResponse.ok(applicationContext.getBean(BlockUserFunc.class).exec(id, request, principal.getName())), executorService);
     }
 
-    @PutMapping("/update-user-password")
-    public CompletableFuture<WrapResponse<String>> updateUserPassword(@Valid @RequestBody UpdateUserPasswordRequest request,
-                                                                      Principal principal) {
-        return CompletableFuture.supplyAsync(()
-                -> WrapResponse.ok(applicationContext.getBean(UpdateUserPasswordFunc.class).exec(request, principal.getName())), executorService);
-    }
+//    @PutMapping("/reset-password")
+//    public CompletableFuture<WrapResponse<String>> resetPassword(@Valid @RequestBody UpdateUserPasswordRequest request,
+//                                                                 Principal principal) {
+//        return CompletableFuture.supplyAsync(()
+//                -> WrapResponse.ok(applicationContext.getBean(UpdateUserPasswordFunc.class).exec(request, principal.getName())), executorService);
+//    }
 }

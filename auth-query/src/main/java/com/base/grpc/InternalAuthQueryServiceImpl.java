@@ -2,6 +2,7 @@ package com.base.grpc;
 
 import com.base.aggregate.UserAggregate;
 import com.base.constant.AuthErrorCode;
+import com.base.constant.UserStatus;
 import com.base.exception.ServiceException;
 import com.base.repository.UserRepository;
 import com.base.util.MappingUtils;
@@ -22,7 +23,8 @@ public class InternalAuthQueryServiceImpl extends InternalUserServiceGrpc.Intern
     public void findUserByUsernameAndPassword(InternalUserServiceOuterClass.FindUserByUsernameAndPasswordRequest request,
                                               StreamObserver<InternalUserServiceOuterClass.UserView> responseObserver) {
         GrpcHandlerUtils.handleInternal(responseObserver, () -> {
-            UserAggregate userAggregate = userRepository.findByUsernameAndPassword(request.getUsername(), passwordEncoder.encode(request.getPassword()))
+            UserAggregate userAggregate = userRepository.findByUsernameAndPasswordAndStatusIsNot(request.getUsername(),
+                            passwordEncoder.encode(request.getPassword()), UserStatus.INACTIVE)
                     .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 
             return MappingUtils.mapObject(userAggregate, InternalUserServiceOuterClass.UserView.class);

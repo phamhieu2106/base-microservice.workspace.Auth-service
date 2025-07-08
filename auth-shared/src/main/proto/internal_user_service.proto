@@ -7,6 +7,7 @@ package com.base.grpc;
 service InternalUserService{
   //action
   rpc createUser(CreateUserRequest) returns (UserView);
+  rpc confirmUpdateUserPassword(ConfirmUpdateUserPasswordRequest) returns (UserView);
   //query
   rpc findUserByUsernameAndPassword (FindUserByUsernameAndPasswordRequest) returns (UserView);
   rpc findUserByUsername (FindByUsernameRequest) returns (UserView);
@@ -19,10 +20,15 @@ message CreateUserRequest{
   string email = 2;
   string phoneNumber = 3;
   string fullName = 4;
-  google.protobuf.Timestamp dateOfBirth = 5;
+  int64 dateOfBirth = 5;
   string token = 6;
-
 }
+message ConfirmUpdateUserPasswordRequest{
+  string username = 1;
+  string newPassword = 2;
+  string confirmPassword = 3;
+}
+
 message FindUserByUsernameAndPasswordRequest{
   string username = 1;
   string password = 2;

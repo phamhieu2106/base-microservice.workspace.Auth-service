@@ -4,11 +4,12 @@ public class AuthErrorCode {
     //SYSTEM
     public static final String CACHE_TOKEN_USER_CONFIRM_FAIL = "AUTH.CACHE_TOKEN_USER_CONFIRM_FAIL";
     public static final String CACHE_USER_EXPIRE = "AUTH.CACHE_USER_EXPIRE";
-
     public static final String INVALID_TOKEN = "AUTH.INVALID_TOKEN";
 
     //AUTH
     public static final String USERNAME_EXIT = "AUTH.USERNAME_EXIT";
+    public static final String USER_INACTIVE = "AUTH.USER_INACTIVE";
+    public static final String USER_ACTIVE_ALREADY = "AUTH.USER_ACTIVE_ALREADY";
     public static final String USER_NOT_FOUND = "AUTH.USER_NOT_FOUND";
     public static final String USER_USERNAME_EMPTY = "AUTH.USER_USERNAME_EMPTY";
     public static final String USER_EMAIL_EMPTY = "AUTH.USER_EMAIL_EMPTY";
