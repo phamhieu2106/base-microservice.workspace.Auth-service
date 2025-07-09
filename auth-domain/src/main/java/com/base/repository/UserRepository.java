@@ -10,6 +10,8 @@ public interface UserRepository extends JpaRepository<UserAggregate, String> {
 
     Optional<UserAggregate> findByUsername(String username);
 
+    Optional<UserAggregate> findByEmail(String email);
+
     Optional<UserAggregate> findByUsernameAndPasswordAndStatusIsNot(String username, String password, Integer status);
 
     Optional<UserAggregate> findByIdAndVersion(String id, String version);

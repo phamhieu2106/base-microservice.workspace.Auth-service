@@ -1,8 +1,8 @@
 package com.base.util;
 
 import com.base.constant.NotificationAuthMessage;
-import com.base.request.constant.NotificationType;
-import com.base.request.domain.CreateNotificationRequest;
+import com.base.constant.NotificationType;
+import com.base.domain.CreateNotificationRequest;
 import com.base.service.BaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

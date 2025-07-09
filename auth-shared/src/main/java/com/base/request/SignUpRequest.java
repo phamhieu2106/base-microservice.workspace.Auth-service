@@ -15,6 +15,7 @@ import java.util.Date;
 public class SignUpRequest extends BaseRequest {
     @NotBlank(message = AuthErrorCode.USER_USERNAME_EMPTY)
     private String username;
+    @NotBlank(message = AuthErrorCode.USER_EMAIL_EMPTY)
     private String email;
     private String phoneNumber;
     private String fullName;

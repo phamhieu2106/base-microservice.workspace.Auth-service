@@ -10,21 +10,19 @@ import com.base.utils.GrpcHandlerUtils;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @GrpcService
 @RequiredArgsConstructor
 public class InternalAuthQueryServiceImpl extends InternalUserServiceGrpc.InternalUserServiceImplBase {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void findUserByUsernameAndPassword(InternalUserServiceOuterClass.FindUserByUsernameAndPasswordRequest request,
                                               StreamObserver<InternalUserServiceOuterClass.UserView> responseObserver) {
         GrpcHandlerUtils.handleInternal(responseObserver, () -> {
             UserAggregate userAggregate = userRepository.findByUsernameAndPasswordAndStatusIsNot(request.getUsername(),
-                            passwordEncoder.encode(request.getPassword()), UserStatus.INACTIVE)
+                            request.getPassword(), UserStatus.INACTIVE)
                     .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
 
             return MappingUtils.mapObject(userAggregate, InternalUserServiceOuterClass.UserView.class);
@@ -36,6 +34,15 @@ public class InternalAuthQueryServiceImpl extends InternalUserServiceGrpc.Intern
                                    StreamObserver<InternalUserServiceOuterClass.UserView> responseObserver) {
         GrpcHandlerUtils.handleInternal(responseObserver, () -> {
             UserAggregate userAggregate = userRepository.findByUsername(request.getUsername())
+                    .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
+            return MappingUtils.mapObject(userAggregate, InternalUserServiceOuterClass.UserView.class);
+        });
+    }
+
+    @Override
+    public void findUserByEmail(InternalUserServiceOuterClass.FindByEmailRequest request, StreamObserver<InternalUserServiceOuterClass.UserView> responseObserver) {
+        GrpcHandlerUtils.handleInternal(responseObserver, () -> {
+            UserAggregate userAggregate = userRepository.findByEmail(request.getEmail())
                     .orElseThrow(() -> new ServiceException(AuthErrorCode.USER_NOT_FOUND));
             return MappingUtils.mapObject(userAggregate, InternalUserServiceOuterClass.UserView.class);
         });
