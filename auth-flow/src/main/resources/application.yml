@@ -12,7 +12,7 @@ spring:
     open-in-view: off
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/henry-event?currentSchema=auth_event
+    url: jdbc:postgresql://localhost:5432/base-event?currentSchema=auth_event
     username: henry
     password: 123456
   messages:
@@ -33,4 +33,7 @@ henry:
     port: 9200
     host: localhost
   connector:
+    db-port: 5432
+    db-name: base-event
+    server-id: 184054
     url: "http://localhost:8083/connectors"

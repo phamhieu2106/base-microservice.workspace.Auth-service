@@ -1,17 +1,17 @@
 package com.base.workflow;
 
+import com.base.common.annotation.BaseEventSubscribeHandler;
 import com.base.constant.AuthActionType;
 import com.base.constant.WorkflowTopic;
 import com.base.event.*;
 import com.base.function.SyncUserViewFunc;
 import com.base.utils.EventEntityMapperUtils;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.Objects;
 
-@Component
+@BaseEventSubscribeHandler(groupId = "auth-base-user-workflow-group")
 public class UserWorkflow extends BaseWorkFlow {
 
     @KafkaListener(topics = WorkflowTopic.AUTH_EVENT_TOPIC, groupId = WorkflowTopic.WORK_FLOW_GROUP_ID)
